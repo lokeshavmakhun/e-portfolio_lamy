@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAMY | Skills & Achievements</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--neon-cyan:#00f5ff;--neon-purple:#bf00ff;--neon-green:#39ff14;--neon-orange:#ff6b00;--dark-bg:#050510;--dark-card:#0a0a1f;--dark-card2:#0d0d25;--text-primary:#e8e8ff;--text-secondary:#8888bb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dark-bg);color:var(--text-primary);font-family:'Rajdhani',sans-serif;font-size:17px;line-height:1.7;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:1}
+.cursor{width:12px;height:12px;background:var(--neon-cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--neon-cyan);transition:width .2s,height .2s}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,5,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,245,255,0.15);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--neon-cyan);text-decoration:none;letter-spacing:2px;text-shadow:0 0 20px var(--neon-cyan)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;text-transform:uppercase;padding:0 1.1rem;height:64px;display:flex;align-items:center;border-right:1px solid rgba(0,245,255,0.06);transition:color .2s,background .2s;position:relative}
+.nav-links a:first-child{border-left:1px solid rgba(0,245,255,0.06)}
+.nav-links a:hover,.nav-links a.active{color:var(--neon-cyan);background:rgba(0,245,255,0.04)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan)}
+canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+#loader{position:fixed;inset:0;background:var(--dark-bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s}
+#loader.hidden{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Orbitron',monospace;font-size:2.5rem;font-weight:900;color:var(--neon-cyan);text-shadow:0 0 40px var(--neon-cyan)}
+.loader-text{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--neon-cyan);letter-spacing:4px}
+.loader-bar-wrap{width:280px;height:2px;background:rgba(0,245,255,0.1)}
+.loader-bar{height:100%;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan);animation:load 1.6s ease-in-out forwards;width:0%}
+main{position:relative;z-index:2;padding-top:64px}
+.page-hero{padding:4rem 6% 2rem;border-bottom:1px solid rgba(0,245,255,0.08)}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-cyan);letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:.6rem;opacity:0;animation:fadeUp .5s .2s forwards}
+.page-title{font-family:'Orbitron',monospace;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--text-primary);opacity:0;animation:fadeUp .5s .4s forwards;line-height:1.1}
+.page-title span{color:var(--neon-orange);text-shadow:0 0 30px var(--neon-orange)}
+.page-sub{font-size:1rem;color:var(--text-secondary);margin-top:1rem;max-width:600px;opacity:0;animation:fadeUp .5s .6s forwards}
+.content{padding:3rem 6%;max-width:1200px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.sec-tag{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-cyan);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:.4rem}
+.sec-title{font-family:'Orbitron',monospace;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--text-primary);margin-bottom:2rem;position:relative;display:inline-block}
+.sec-title::after{content:'';position:absolute;bottom:-6px;left:0;width:50%;height:2px;background:linear-gradient(90deg,var(--neon-cyan),transparent);box-shadow:0 0 8px var(--neon-cyan)}
+
+/* ── Skill tiles ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem;margin-bottom:3rem}
+.skill-tile{background:var(--dark-card);border:1px solid rgba(0,245,255,0.1);padding:1.4rem 1rem;text-align:center;cursor:none;transition:border-color .3s,box-shadow .3s,transform .3s;position:relative;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.skill-tile::before{content:'';position:absolute;top:0;right:12px;width:0;height:0;border-style:solid;border-width:0 12px 12px 0;border-color:transparent rgba(0,245,255,.15) transparent transparent;transition:border-color .3s}
+.skill-tile:hover{border-color:rgba(0,245,255,.45);box-shadow:0 0 22px rgba(0,245,255,.1);transform:translateY(-4px)}
+.skill-tile:hover::before{border-color:transparent var(--neon-cyan) transparent transparent}
+.skill-tile.active{border-color:var(--neon-cyan);box-shadow:0 0 28px rgba(0,245,255,.2)}
+.skill-tile-icon{font-size:1.8rem;display:block;margin-bottom:.6rem}
+.skill-tile-name{font-family:'Orbitron',monospace;font-size:.68rem;color:var(--text-primary);letter-spacing:1px;display:block;margin-bottom:.3rem}
+.skill-tile-type{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--text-secondary);letter-spacing:1px;display:block}
+.skill-tile-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.3);letter-spacing:2px;display:block;margin-top:.6rem;transition:color .2s}
+.skill-tile:hover .skill-tile-hint,.skill-tile.active .skill-tile-hint{color:rgba(0,245,255,.8)}
+
+/* ── Modal overlay ── */
+.skill-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.skill-modal-overlay.open{opacity:1;pointer-events:all}
+.skill-modal{background:#07071a;border:1px solid rgba(0,245,255,.25);border-top:2px solid var(--neon-cyan);width:100%;max-width:860px;max-height:90vh;overflow-y:auto;position:relative}
+.skill-modal-overlay.open .skill-modal{animation:modalIn .35s ease forwards}
+@keyframes modalIn{from{transform:translateY(28px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.modal-header{padding:2rem 2rem 1.4rem;border-bottom:1px solid rgba(0,245,255,.08);display:flex;align-items:center;gap:1.2rem}
+.modal-header-icon{font-size:2.4rem;flex-shrink:0}
+.modal-title{font-family:'Orbitron',monospace;font-size:1.15rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px;display:block;margin-bottom:.25rem;text-shadow:0 0 20px rgba(0,245,255,.4)}
+.modal-subtitle{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-secondary);letter-spacing:2px}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:none;letter-spacing:2px;transition:background .2s,border-color .2s}
+.modal-close:hover{background:rgba(0,245,255,.08);border-color:var(--neon-cyan)}
+.modal-body{padding:1.8rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:620px){.modal-body{grid-template-columns:1fr}}
+.modal-desc p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:.9rem}
+.modal-desc p:last-child{margin-bottom:0}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);background:rgba(0,245,255,.04)}
+.modal-imgs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.modal-img-slot{width:100%;aspect-ratio:4/3;border:1px solid rgba(0,245,255,.12);background:rgba(0,245,255,.02);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(0,245,255,.2);letter-spacing:1px;text-align:center;padding:.5rem;overflow:hidden}
+.modal-img-slot img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── Badge clusters ── */
+.badge-section{margin-bottom:3rem}
+.badge-cluster{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
+.badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:.35rem .85rem;border:1px solid rgba(0,245,255,.25);color:var(--neon-cyan);background:rgba(0,245,255,.04);letter-spacing:1px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s,border-color .2s}
+.badge:hover{background:rgba(0,245,255,.12);border-color:var(--neon-cyan)}
+.badge-purple{border-color:rgba(191,0,255,.25);color:var(--neon-purple);background:rgba(191,0,255,.04)}
+.badge-purple:hover{background:rgba(191,0,255,.12);border-color:var(--neon-purple)}
+.badge-orange{border-color:rgba(255,107,0,.25);color:var(--neon-orange);background:rgba(255,107,0,.04)}
+.badge-orange:hover{background:rgba(255,107,0,.12);border-color:var(--neon-orange)}
+
+/* ── Certificate cards ── */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;margin-bottom:3rem}
+.cert-card{background:var(--dark-card);border:1px solid rgba(255,107,0,0.18);position:relative;cursor:none;transition:border-color .3s,box-shadow .3s,transform .3s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+.cert-card::before{content:'';position:absolute;top:0;right:16px;width:0;height:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent rgba(255,107,0,.3) transparent transparent;transition:border-color .3s;z-index:1}
+.cert-card:hover{border-color:rgba(255,107,0,.6);box-shadow:0 0 28px rgba(255,107,0,.12);transform:translateY(-4px)}
+.cert-card:hover::before{border-color:transparent var(--neon-orange) transparent transparent}
+.cert-card.active{border-color:var(--neon-orange);box-shadow:0 0 32px rgba(255,107,0,.2)}
+/* Thumbnail area */
+.cert-thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#08080f;border-bottom:1px solid rgba(255,107,0,.12);position:relative;display:flex;align-items:center;justify-content:center}
+.cert-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.cert-card:hover .cert-thumb img{transform:scale(1.05)}
+.cert-thumb-placeholder{font-size:3rem;opacity:.25}
+.cert-thumb-overlay{position:absolute;inset:0;background:rgba(255,107,0,.0);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-orange);letter-spacing:3px;background:rgba(5,5,16,.6)}
+.cert-card:hover .cert-thumb-overlay{opacity:1}
+/* Card body */
+.cert-body{padding:1.2rem 1.3rem 1.4rem}
+.cert-type-badge{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--neon-orange);text-transform:uppercase;margin-bottom:.5rem;display:block}
+.cert-name{font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--text-primary);letter-spacing:.5px;margin-bottom:.5rem;line-height:1.3}
+.cert-issuer{font-size:.8rem;color:var(--text-secondary);margin-bottom:.4rem}
+.cert-date{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(255,107,0,.5);letter-spacing:1px}
+.cert-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(255,107,0,.3);letter-spacing:2px;display:block;margin-top:.7rem;transition:color .2s}
+.cert-card:hover .cert-hint{color:rgba(255,107,0,.7)}
+
+/* ── Certificate modal ── */
+.cert-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.cert-modal-overlay.open{opacity:1;pointer-events:all}
+.cert-modal{background:#07071a;border:1px solid rgba(255,107,0,.3);border-top:2px solid var(--neon-orange);width:100%;max-width:880px;max-height:92vh;overflow-y:auto;position:relative}
+.cert-modal-overlay.open .cert-modal{animation:certModalIn .35s ease forwards}
+@keyframes certModalIn{from{transform:translateY(28px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.cert-modal-header{padding:1.8rem 2rem 1.3rem;border-bottom:1px solid rgba(255,107,0,.1);display:flex;align-items:flex-start;gap:1.2rem}
+.cert-modal-icon{font-size:2.4rem;flex-shrink:0;margin-top:.1rem}
+.cert-modal-title{font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;color:var(--neon-orange);letter-spacing:2px;display:block;margin-bottom:.3rem;text-shadow:0 0 20px rgba(255,107,0,.4)}
+.cert-modal-issuer{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-secondary);letter-spacing:2px;display:block;margin-bottom:.2rem}
+.cert-modal-date{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(255,107,0,.5);letter-spacing:1px}
+.cert-modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(255,107,0,.25);color:var(--neon-orange);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:none;letter-spacing:2px;transition:background .2s}
+.cert-modal-close:hover{background:rgba(255,107,0,.1)}
+.cert-modal-body{padding:1.8rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:640px){.cert-modal-body{grid-template-columns:1fr}}
+.cert-modal-desc p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:.9rem}
+.cert-modal-desc p:last-of-type{margin-bottom:0}
+.cert-modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.cert-modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(255,107,0,.2);color:var(--neon-orange);background:rgba(255,107,0,.04)}
+.cert-modal-img-wrap{display:flex;flex-direction:column;gap:.85rem}
+.cert-full-img{width:100%;border:1px solid rgba(255,107,0,.2);display:block;background:#000}
+.cert-full-img img{width:100%;display:block;object-fit:contain}
+.cert-full-placeholder{width:100%;aspect-ratio:4/3;border:1px dashed rgba(255,107,0,.15);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.65rem;color:rgba(255,107,0,.2);letter-spacing:1px;text-align:center;padding:1rem}
+.cert-view-btn{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.2rem;border:1px solid rgba(255,107,0,.3);background:rgba(255,107,0,.06);text-decoration:none;transition:background .2s,border-color .2s}
+.cert-view-btn:hover{background:rgba(255,107,0,.14);border-color:rgba(255,107,0,.6)}
+.cert-view-btn-icon{font-size:1.3rem;flex-shrink:0}
+.cert-view-btn-text{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-orange);letter-spacing:1px}
+.cert-view-btn-sub{font-size:.7rem;color:var(--text-secondary);margin-top:.15rem}
+.aesthetic-image {
+  display: block;   /* Important: margins won't work without this */
+  margin-left: auto;
+  margin-right: auto;
+  
+  /* Your existing styling */
+  width: 45%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  
+  /* Optional: slightly dim the image to make the glow feel brighter */
+  filter: brightness(1.05);  
+
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.2), /* Deep shadow for lift */
+    0 0 15px rgba(205, 195, 195, 0.5); /* Outer glow for light */}
+
+.aesthetic-image:hover {
+  transform: scale(1.52); /* Subtle zoom on hover */
+}
+
+footer{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 3.5rem;border-top:1px solid rgba(0,245,255,0.08)}
+footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--text-secondary);letter-spacing:2px;margin-top:.4rem}
+.menu-btn{display:none;background:transparent;border:1px solid rgba(0,245,255,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .8rem;cursor:none;letter-spacing:2px}
+@media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}body{cursor:auto}.cursor,.cursor-ring{display:none}.content{padding:2rem 1rem}.page-hero{padding:2.5rem 1rem 1.5rem}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes load{to{width:100%}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">LAMY</div><div class="loader-text">LOADING SKILL TREE...</div><div class="loader-bar-wrap"><div class="loader-bar"></div></div></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="particles"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">LAMY://PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="achievements.html" class="active">Skills</a></li>
+    <li><a href="semester1.html">Sem.01</a></li>
+    <li><a href="semester2.html">Sem.02</a></li>
+    <li><a href="reflection.html">Reflection</a></li>
+  </ul>
+  <button class="menu-btn" onclick="toggleNav()">[ MENU ]</button>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <span class="page-tag">// SKILL TREE & ACHIEVEMENTS //</span>
+    <h1 class="page-title">Skills &amp; <span>Achievements</span></h1>
+    <p class="page-sub">Click any skill to open a detailed breakdown. </p>
+  </div>
+
+  <div class="content">
+
+    <!-- Technical Skills -->
+    <div class="reveal">
+      <span class="sec-tag">// TECHNICAL SKILL TREE</span>
+      <h2 class="sec-title">Technical Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-tile" onclick="openSkillModal('python', event)">
+          <span class="skill-tile-icon">🐍</span>
+          <span class="skill-tile-name">Python</span>
+          <span class="skill-tile-type">Programming</span>
+          <span class="skill-tile-hint">[ TAP TO ACCESS ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('html', event)">
+          <span class="skill-tile-icon">🌐</span>
+          <span class="skill-tile-name">HTML/CSS/<div>Javascript</div></span>
+          <span class="skill-tile-type">Web</span>
+          <span class="skill-tile-hint">[ TAP TO ACCESS ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('javascript', event)">
+          <span class="skill-tile-icon">⚡</span>
+          <span class="skill-tile-name">Linux</span>
+          <span class="skill-tile-type">Operating Systems</span>
+          <span class="skill-tile-hint">[ TAP TO ACCESS ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('algorithms', event)">
+          <span class="skill-tile-icon">🪟</span>
+          <span class="skill-tile-name">Microsoft Apps</span>
+          <span class="skill-tile-type">Projects</span>
+          <span class="skill-tile-hint">[ TAP TO ACCESS ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('databases', event)">
+          <span class="skill-tile-icon">🗄️</span>
+          <span class="skill-tile-name">Databases</span>
+          <span class="skill-tile-type">CS Course</span>
+          <span class="skill-tile-hint">[ TAP TO OPEN ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('networking', event)">
+          <span class="skill-tile-icon">🖥️</span>
+          <span class="skill-tile-name">Virtual Machines</span>
+          <span class="skill-tile-type">Programming</span>
+          <span class="skill-tile-hint">[ TAP TO ACCESS ]</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Soft Skills -->
+    <div class="reveal">
+      <span class="sec-tag">// SOFT SKILL TREE</span>
+      <h2 class="sec-title">Soft Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-tile" onclick="openSkillModal('communication', event)">
+          <span class="skill-tile-icon">🗣️</span>
+          <span class="skill-tile-name">Communication</span>
+          <span class="skill-tile-type">Soft Skill</span>
+          <span class="skill-tile-hint">[ TAP TO OPEN ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('teamwork', event)">
+          <span class="skill-tile-icon">🤝</span>
+          <span class="skill-tile-name">Teamwork</span>
+          <span class="skill-tile-type">Soft Skill</span>
+          <span class="skill-tile-hint">[ TAP TO OPEN ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('problemsolving', event)">
+          <span class="skill-tile-icon">🧩</span>
+          <span class="skill-tile-name">Problem Solving</span>
+          <span class="skill-tile-type">Soft Skill</span>
+          <span class="skill-tile-hint">[ TAP TO OPEN ]</span>
+        </div>
+
+        <div class="skill-tile" onclick="openSkillModal('timemanagement', event)">
+          <span class="skill-tile-icon">⏱️</span>
+          <span class="skill-tile-name">Time Management</span>
+          <span class="skill-tile-type">Soft Skill</span>
+          <span class="skill-tile-hint">[ TAP TO OPEN ]</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tools & Platforms -->
+    <div class="badge-section reveal">
+      <span class="sec-tag">// INVENTORY</span>
+      <h2 class="sec-title">Tools &amp; Platforms</h2>
+      <div class="badge-cluster">
+        <span class="badge">VS Code</span>
+        <span class="badge">Git</span>
+        <span class="badge"><a href="https://github.com" style="text-decoration: none; color:var(--neon-cyan);" target="_blank">GitHub</a></span>
+        <span class="badge">GitHub Pages</span>
+        <span class="badge">MS Office</span>
+        <span class="badge">Google Workspace</span>
+        <span class="badge">Figma</span>
+        <span class="badge"><a href="https://linkedin.com" style="text-decoration: none; color:var(--neon-cyan);" target="_blank">LinkedIn</a></span>
+      </div>
+    </div>
+
+    <!-- Academic Achievements / Certificates -->
+    <div class="reveal">
+      <span class="sec-tag">// ACHIEVEMENTS UNLOCKED</span>
+      <h2 class="sec-title">Certificates &amp; Achievements</h2>
+
+      <div class="cert-grid">
+
+        <!-- ① BSc Enrolment -->
+        <div class="cert-card" onclick="openCert('bsc', event)">
+          <div class="cert-thumb">
+            <span class="cert-thumb-placeholder">🎓</span>
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">University</span>
+            <div class="cert-name">BSc (Hons) Computer Science</div>
+            <div class="cert-issuer">University of Mauritius</div>
+            <div class="cert-date">2024 — Present</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+        <!-- ② HSC Certificate -->
+        <div class="cert-card" onclick="openCert('hsc', event)">
+          <div class="cert-thumb">
+            <img src="images/A-Level.jpg" alt="HSC Certificate">
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">Certificate</span>
+            <div class="cert-name">HSC Certificate</div>
+            <div class="cert-issuer">Cambridge International Education</div>
+            <div class="cert-date">November 2024</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+        <div class="cert-card" onclick="openCert('sc', event)">
+          <div class="cert-thumb">
+            <img src="images/O-level.jpg" alt="SC Certificate">
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">Certificate</span>
+            <div class="cert-name">SC Certificate</div>
+            <div class="cert-issuer">Cambridge O-level</div>
+            <div class="cert-date">June 2022</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+        <!-- ④ Top 500 Ranking -->
+        <div class="cert-card" onclick="openCert('top500', event)">
+          <div class="cert-thumb">
+            <img src="images/Top500.jpg" alt="Top 500 Ranking">
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">Achievement</span>
+            <div class="cert-name">Top 500 Ranking</div>
+            <div class="cert-issuer">Mauritius Examination Syndicate</div>
+            <div class="cert-date">2024</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+        <!-- ⑤ E-Portfolio -->
+        <div class="cert-card" onclick="openCert('eportfolio', event)">
+          <div class="cert-thumb">
+            <span class="cert-thumb-placeholder">🌐</span>
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">Project</span>
+            <div class="cert-name">E-Portfolio Built &amp; Deployed</div>
+            <div class="cert-issuer">GitHub Pages</div>
+            <div class="cert-date">2026</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+        <!-- ⑥ Spare slot — duplicate and fill in for extra certs -->
+        <div class="cert-card" onclick="openCert('extra', event)">
+          <div class="cert-thumb">
+            <span class="cert-thumb-placeholder">📋</span>
+            <div class="cert-thumb-overlay">[ VIEW ]</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">[ Type ]</span>
+            <div class="cert-name">[ Add Certificate Name ]</div>
+            <div class="cert-issuer">[ Issuing Organisation ]</div>
+            <div class="cert-date">[ Year ]</div>
+            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end .content -->
+
+  <!-- ── Certificate Modal ── -->
+  <div class="cert-modal-overlay" id="certModalOverlay" onclick="handleCertOverlay(event)">
+    <div class="cert-modal" id="certModal">
+      <button class="cert-modal-close" onclick="closeCert()">[ CLOSE ✕ ]</button>
+      <div class="cert-modal-header">
+        <span class="cert-modal-icon" id="cmIcon"></span>
+        <div>
+          <span class="cert-modal-title" id="cmTitle"></span>
+          <span class="cert-modal-issuer" id="cmIssuer"></span>
+          <span class="cert-modal-date" id="cmDate"></span>
+        </div>
+      </div>
+      <div class="cert-modal-body">
+        <div class="cert-modal-desc" id="cmDesc"></div>
+        <div class="cert-modal-img-wrap" id="cmMedia"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Skill Modal ── -->
+  <div class="skill-modal-overlay" id="skillModalOverlay" onclick="handleOverlayClick(event)">
+    <div class="skill-modal" id="skillModal">
+      <button class="modal-close" onclick="closeSkillModal()">[ CLOSE ✕ ]</button>
+      <div class="modal-header">
+        <span class="modal-header-icon" id="modalIcon"></span>
+        <div>
+          <span class="modal-title" id="modalTitle"></span>
+          <span class="modal-subtitle" id="modalSubtitle"></span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-desc" id="modalDesc"></div>
+        <div class="modal-imgs" id="modalImgs"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 MAKHUN Lokeshav Anand — BSc (Hons) Computer Science — GitHub Pages</p>
+  <p>// SKILL TREE UPDATED //</p>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// ════════════════════════════════════════════
+//  CERTIFICATE DATA — edit this section
+// ════════════════════════════════════════════
+const certData = {
+
+  bsc: {
+    icon: '🎓',
+    title: 'BSc (Hons) Computer Science',
+    issuer: 'University of Mauritius',
+    date: '2024 — Present',
+    desc: [
+      'Currently enrolled in Year 1 of the BSc (Hons) Computer Science programme at the University of Mauritius. Committed to a 3-year academic journey covering software development, algorithms, networking, databases, and communication skills.',
+      '[ Replace with your own description — why did you choose this degree? What modules are you enjoying most? What are your academic goals? ]'
+    ],
+    tags: ['Computer Science', 'Year 1', 'University of Mauritius', 'Full Time'],
+    // Set to your certificate image path, or null for no image
+    image: null,
+    // Set to a PDF path or URL, or null
+    file: null
+  },
+
+  hsc: {
+    icon: '📜',
+    title: 'HSC Certificate',
+    issuer: 'Cambridge International Education',
+    date: 'November 2024',
+    desc: [
+      'Successfully completed the Higher School Certificate (HSC) examinations in November 2024, earning the HSC Certificate with strong performance across all subjects. This certificate represents the culmination of my secondary education and reflects my dedication and hard work during those years.',
+      'I obtained A* in my main subject which were Computer Science, Mathematics and Physics. Surprisingly, I got an A in French which was not a subject I particularly enjoyed but I am glad I put in the effort to do well in it as it has given me a useful skill and broadened my horizons.However, I did not perfrom well in General Paper, getting only a B. Overall, earning the HSC Certificate was a significant milestone that has opened up new opportunities for my academic and professional journey.',
+      'Even though I wanted to try again for a better grade in General Paper, I decided to just move on and focus on my university studies instead. I am proud of my achievements and I am excited to continue learning and growing in the field of computer science at university. My motto is to always keep pushing forward, no matter what is ahead.'
+    ],
+    tags: ['HSC', 'Royal College Port-Louis'],
+    image: 'images/A-Level.jpg',
+    file: { path: 'images/A-Level.jpg', label: 'View HSC Certificate', type: 'IMAGE' }
+  },
+
+  sc: {
+    icon: '📜',
+    title: 'Cambridge O-level Certificate',
+    issuer: 'Cambridge Assessment International Education',
+    date: 'June 2022',
+    desc: [
+      'Completed the Cambridge O-level examinations with strong performance in all subjects. I took a range of subjects including Computer Science, Mathematics, Physics, Chemistry, Accounting, Additional Mathematics, French and English Language. I had obtained A* in all of my subjects except an A in English Language, which was a proud achievement and a testament to my dedication and hard work during my secondary education.',
+      'Fun Fact: I had actually registered to learn biology instead of accounting, but I got frustrated as our class did not have a dedicated biology teacher. So, I decided to swtich to accounting as it felt more manageable to study which was the case. In the end, I am glad I made that decision as I ended up loving accounting and it has been a useful skill to have, especially when it comes to managing finances and understanding the financial aspects of running projects.'
+    ],
+    tags: ['Cambridge O-level', 'Royal College Port-Louis'],
+    image: 'images/O-level.jpg',
+    file: { path: 'images/O-level.jpg', label: 'View O-level Certificate', type: 'IMAGE' }
+  },
+
+  top500: {
+    icon: '🏆',
+    title: 'Top 500 Ranking',
+    issuer: 'Mauritius Examination Syndicate',
+    date: '2024',
+    desc: [
+      'Achieved 149th place in the national ranking for the Higher School Certificate (HSC) examinations in 2024, placing me within the top 500 students across Mauritius.',
+      'This ranking reflects my strong academic performance across all subjects, particularly in Computer Science, Mathematics, and Physics. It was a significant milestone that motivated me to pursue further studies in computer science at university.'
+    ],
+    tags: ['Achievement', 'Ranking'],
+    image: "images/Top500.jpg",
+    file: { path: "images/Top500.jpg", label: "View Top 500 Certificate", type: "IMAGE" }
+  },
+
+  eportfolio: {
+    icon: '🌐',
+    title: 'E-Portfolio Built & Deployed',
+    issuer: 'GitHub Pages',
+    date: '2026',
+    desc: [
+      'Designed and built a fully interactive multi-page E-Portfolio from scratch using HTML, CSS, and JavaScript — no frameworks or templates. Features include a custom animated cursor, particle effects, skill modals, project cards, and scroll-reveal animations.',
+      'Deployed live on GitHub Pages as a publicly accessible professional portfolio demonstrating technical skill, design thinking, and personal branding.'
+    ],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages', 'UI Design', 'Personal Branding'],
+    image: null,
+    // Swap in your live URL:
+    // file: { path: 'https://yourusername.github.io', label: 'View Live Site', type: 'LINK' }
+    file: null
+  },
+
+  extra: {
+    icon: '📋',
+    title: '[ Add Certificate Name ]',
+    issuer: '[ Issuing Organisation ]',
+    date: '[ Year ]',
+    desc: [
+      '[ Replace — describe what this certificate is for and how you earned it. ]',
+      '[ Add any relevant context about the course, exam, or programme that led to this certificate. ]'
+    ],
+    tags: ['[ Tag ]', '[ Tag ]'],
+    image: null,
+    file: null
+  }
+
+};
+
+// ════════════════════════════════════════════
+//  MODAL LOGIC — no need to edit below
+// ════════════════════════════════════════════
+function openCert(id, event) {
+  const c = certData[id];
+  if (!c) return;
+
+  document.getElementById('cmIcon').textContent = c.icon;
+  document.getElementById('cmTitle').textContent = c.title;
+  document.getElementById('cmIssuer').textContent = c.issuer;
+  document.getElementById('cmDate').textContent = c.date;
+
+  // Description + tags
+  document.getElementById('cmDesc').innerHTML =
+    c.desc.map(p => `<p>${p}</p>`).join('') +
+    `<div class="cert-modal-tags">${c.tags.map(t => `<span class="cert-modal-tag">${t}</span>`).join('')}</div>`;
+
+  // Media panel
+  let media = '';
+
+  if (c.image) {
+    media += `<div class="cert-full-img"><img src="${c.image}" alt="${c.title}"></div>`;
+  } else {
+    media += `<div class="cert-full-placeholder">[ Add your certificate image here — see certData above ]</div>`;
+  }
+
+  if (c.file) {
+    const isLink = c.file.type === 'LINK';
+    media += `<a href="${c.file.path}" target="_blank" class="cert-view-btn">
+      <span class="cert-view-btn-icon">${isLink ? '🔗' : '📄'}</span>
+      <div>
+        <div class="cert-view-btn-text">${c.file.label}</div>
+        <div class="cert-view-btn-sub">${isLink ? 'Opens in new tab' : 'Click to open ' + c.file.type}</div>
+      </div>
+    </a>`;
+  }
+
+
+
+  document.getElementById('cmMedia').innerHTML = media;
+
+  // Highlight active card
+  document.querySelectorAll('.cert-card').forEach(el => el.classList.remove('active'));
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+  document.getElementById('certModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCert() {
+  document.getElementById('certModalOverlay').classList.remove('open');
+  document.querySelectorAll('.cert-card').forEach(el => el.classList.remove('active'));
+  document.body.style.overflow = '';
+}
+
+function handleCertOverlay(e) {
+  if (e.target === document.getElementById('certModalOverlay')) closeCert();
+}
+
+// ════════════════════════════════════════════
+//  SKILL MODAL DATA
+// ════════════════════════════════════════════
+const skillData = {
+  python: {
+    icon: '🐍', title: 'PYTHON', subtitle: 'Programming Language',
+    desc: [
+      'Python was the first programming language I studied in depth during my CS degree. I was drawn to its clean, readable syntax and how quickly you can go from an idea to a working script.',
+      'I have used Python for scripting exercises, basic data manipulation tasks, and algorithmic problem-solving assignments throughout the year.',
+      '[ Replace with your real Python experience — what programs have you written? What libraries have you used? Any projects? ]'
+    ],
+    tags: ['Scripting', 'Algorithms', 'OOP Basics', '[ Add more ]'],
+    imgs: ['[ Add screenshot of your Python code ]', '[ Add project output ]', '[ IDE or terminal screenshot ]', '[ Add another image ]']
+  },
+  html: {
+    icon: '🌐', title: 'HTML / CSS / JS', subtitle: 'Web Development',
+    desc: [
+      'HTML, CSS and JavaScript are the foundation of this very portfolio. Building a full multi-page site from scratch gave me hands-on experience with document structure, layout systems, and visual design.',
+      'I learned how to use CSS Grid, Flexbox, custom properties, animations, and responsive design to create a consistent experience across all six pages.',
+      '[ Replace with your actual experience — what other pages or projects have you built? What techniques did you learn? ]'
+    ],
+    tags: ['HTML5', 'CSS3', 'Flexbox', 'CSS Grid', 'Animations', 'Responsive Design'],
+    imgs: ['[ Screenshot of this portfolio ]', '[ Another web project ]', '[ Code snippet in VS Code ]', '[ Add another image ]']
+  },
+  javascript: {
+    icon: '⚡', title: 'LINUX', subtitle: 'Operating Systems',
+    desc: [
+      '[ Replace with your real Linux experience — what distributions have you used? What commands and tools are you comfortable with? ]',
+      '[ Add context — did you use Linux in a lab, on a virtual machine, or on your own machine? What tasks did you complete with it? ]'
+    ],
+    tags: ['Linux', 'Terminal', 'Command Line', '[ Add distro ]'],
+    imgs: ['[ Terminal screenshot ]', '[ Linux environment screenshot ]', '[ Add another image ]', '[ Add another image ]']
+  },
+  algorithms: {
+    icon: '🪟', title: 'MICROSOFT APPS', subtitle: 'Productivity',
+    desc: [
+      '[ Replace — which Microsoft applications do you use regularly? Word, Excel, PowerPoint, Teams, OneDrive? ]',
+      '[ Add specific examples — have you used Excel for data, Word for reports, PowerPoint for presentations? Describe how you used them in your studies. ]'
+    ],
+    tags: ['Microsoft Word', 'Excel', 'PowerPoint', 'Teams', '[ Add ]'],
+    imgs: ['[ Word document screenshot ]', '[ Excel spreadsheet ]', '[ PowerPoint slide ]', '[ Add another image ]']
+  },
+  databases: {
+    icon: '🗄️', title: 'DATABASES', subtitle: 'CS Fundamentals',
+    desc: [
+      'I have been introduced to relational database concepts including table design, primary and foreign keys, normalisation, and writing SQL queries to retrieve and manipulate data.',
+      'Understanding how data is structured and queried is fundamental to almost every real-world software system.',
+      '[ Add your real database experience — what system did you use? What queries or schema designs did you complete? Any practical labs? ]'
+    ],
+    tags: ['SQL', 'Relational Databases', 'Schema Design', 'Normalisation', '[ Add ]'],
+    imgs: ['[ SQL query screenshot ]', '[ ER diagram ]', '[ Database tool screenshot ]', '[ Add another image ]']
+  },
+  networking: {
+    icon: '🖥️', title: 'VIRTUAL MACHINES', subtitle: 'Virtualisation',
+    desc: [
+      '[ Replace — what hypervisor or VM software have you used? VirtualBox, VMware, Hyper-V? ]',
+      '[ Add context — what did you use VMs for? Testing operating systems, running labs, isolated environments? Describe a specific task you completed. ]'
+    ],
+    tags: ['VirtualBox', 'VMware', 'Virtualisation', 'Snapshots', '[ Add ]'],
+    imgs: ['[ VM running screenshot ]', '[ VM settings screenshot ]', '[ Add another image ]', '[ Add another image ]']
+  },
+  communication: {
+    icon: '🗣️', title: 'COMMUNICATION', subtitle: 'Soft Skill',
+    desc: [
+      'Written and verbal communication has been a central focus of this module — from research papers and a synopsis to presentations and CRM role-play simulations.',
+      'I now understand that explaining a technical idea to a non-technical audience is just as important as being able to build it.',
+      '[ Add your real examples — which pieces of writing are you most proud of? How have your presentation skills improved? ]'
+    ],
+    tags: ['Written Communication', 'Verbal Communication', 'Presentations', 'Academic Writing'],
+    imgs: ['[ Screenshot of your research paper ]', '[ Presentation slide ]', '[ Group activity photo ]', '[ Add another image ]']
+  },
+  teamwork: {
+    icon: '🤝', title: 'TEAMWORK', subtitle: 'Soft Skill',
+    desc: [
+      'The Scavenger Hunt and Team Building exercises in Semester 1 were real tests of group collaboration. I learned to listen actively, adapt to different working styles, and contribute based on what the team needed.',
+      'Working in groups also showed me that disagreement, when managed well, leads to stronger outcomes than working alone.',
+      '[ Add your specific teamwork experiences — what role did you play? What was difficult? How did you handle conflict? ]'
+    ],
+    tags: ['Collaboration', 'Group Projects', 'Active Listening', 'Adaptability', 'Conflict Resolution'],
+    imgs: ['[ Team activity photo ]', '[ Group project output ]', '[ Team photo ]', '[ Add another image ]']
+  },
+  problemsolving: {
+    icon: '🧩', title: 'PROBLEM SOLVING', subtitle: 'Soft Skill',
+    desc: [
+      'Problem solving is at the core of Computer Science. Every assignment and debugging session this year required breaking a complex situation into manageable steps and working through it systematically.',
+      'I have developed a habit of fully defining the problem before jumping to a solution — a discipline that has improved my academic work and team contributions.',
+      '[ Add your own examples — what problems have you solved creatively this year? The more specific, the more convincing. ]'
+    ],
+    tags: ['Critical Thinking', 'Analysis', 'Debugging', 'Logical Reasoning', 'Creativity'],
+    imgs: ['[ Problem-solving diagram or notes ]', '[ Debugging session screenshot ]', '[ Process flowchart ]', '[ Add another image ]']
+  },
+  timemanagement: {
+    icon: '⏱️', title: 'TIME MANAGEMENT', subtitle: 'Soft Skill',
+    desc: [
+      'Balancing multiple module deadlines simultaneously was one of the biggest adjustments of university study. I had to build new systems — calendars, task lists, and time-blocking — to stay on top of everything.',
+      'This is still an area I am actively improving. Being honest about where my time goes has helped me become more intentional about how I study and plan.',
+      '[ Be honest here — what tools or habits have helped you? Where do you still struggle? Honesty scores better than perfection. ]'
+    ],
+    tags: ['Planning', 'Prioritisation', 'Deadline Management', 'Organisation', 'Self-Discipline'],
+    imgs: ['[ Planner or calendar screenshot ]', '[ Task list or app screenshot ]', '[ Study setup photo ]', '[ Add another image ]']
+  }
+};
+
+function openSkillModal(id, event) {
+  const data = skillData[id];
+  if (!data) return;
+  document.getElementById('modalIcon').textContent = data.icon;
+  document.getElementById('modalTitle').textContent = data.title;
+  document.getElementById('modalSubtitle').textContent = data.subtitle;
+  document.getElementById('modalDesc').innerHTML =
+    data.desc.map(p => `<p>${p}</p>`).join('') +
+    '<div class="modal-tags">' + data.tags.map(t => `<span class="modal-tag">${t}</span>`).join('') + '</div>';
+  document.getElementById('modalImgs').innerHTML =
+    data.imgs.map(src => {
+      const isFile = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(src);
+      return `<div class="modal-img-slot">${isFile ? `<img src="${src}" alt="">` : src}</div>`;
+    }).join('');
+  document.querySelectorAll('.skill-tile').forEach(t => t.classList.remove('active'));
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+  document.getElementById('skillModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSkillModal() {
+  document.getElementById('skillModalOverlay').classList.remove('open');
+  document.querySelectorAll('.skill-tile').forEach(t => t.classList.remove('active'));
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('skillModalOverlay')) closeSkillModal();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeSkillModal(); closeCert(); }
+});
+</script>
+</body>
+</html>

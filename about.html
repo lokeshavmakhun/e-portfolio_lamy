@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAMY | About Me</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--neon-cyan:#00f5ff;--neon-purple:#bf00ff;--neon-green:#39ff14;--neon-orange:#ff6b00;--dark-bg:#050510;--dark-card:#0a0a1f;--dark-card2:#0d0d25;--text-primary:#e8e8ff;--text-secondary:#8888bb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dark-bg);color:var(--text-primary);font-family:'Rajdhani',sans-serif;font-size:17px;line-height:1.7;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:1}
+.cursor{width:12px;height:12px;background:var(--neon-cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--neon-cyan);transition:width .2s,height .2s}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,5,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,245,255,0.15);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--neon-cyan);text-decoration:none;letter-spacing:2px;text-shadow:0 0 20px var(--neon-cyan)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;text-transform:uppercase;padding:0 1.1rem;height:64px;display:flex;align-items:center;border-right:1px solid rgba(0,245,255,0.06);transition:color .2s,background .2s;position:relative}
+.nav-links a:first-child{border-left:1px solid rgba(0,245,255,0.06)}
+.nav-links a:hover,.nav-links a.active{color:var(--neon-cyan);background:rgba(0,245,255,0.04)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan)}
+canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+#loader{position:fixed;inset:0;background:var(--dark-bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s}
+#loader.hidden{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Orbitron',monospace;font-size:2.5rem;font-weight:900;color:var(--neon-cyan);text-shadow:0 0 40px var(--neon-cyan)}
+.loader-text{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--neon-cyan);letter-spacing:4px}
+.loader-bar-wrap{width:280px;height:2px;background:rgba(0,245,255,0.1)}
+.loader-bar{height:100%;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan);animation:load 1.6s ease-in-out forwards;width:0%}
+main{position:relative;z-index:2;padding-top:64px}
+.page-hero{padding:4rem 6% 2rem;border-bottom:1px solid rgba(0,245,255,0.08)}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-cyan);letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:.6rem;opacity:0;animation:fadeUp .5s .2s forwards}
+.page-title{font-family:'Orbitron',monospace;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--text-primary);opacity:0;animation:fadeUp .5s .4s forwards;line-height:1.1}
+.page-title span{color:var(--neon-cyan);text-shadow:0 0 30px var(--neon-cyan)}
+.page-sub{font-size:1rem;color:var(--text-secondary);margin-top:1rem;max-width:600px;opacity:0;animation:fadeUp .5s .6s forwards}
+.content{padding:3rem 6%;max-width:1200px}
+/* Reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* About grid */
+.about-grid{display:grid;grid-template-columns:340px 1fr;gap:2.5rem;align-items:start;margin-bottom:3rem}
+/* Avatar panel */
+.avatar-panel{background:var(--dark-card);border:1px solid rgba(0,245,255,0.15);padding:2rem;position:relative;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+.avatar-panel::before{content:'';position:absolute;top:0;right:20px;width:0;height:0;border-style:solid;border-width:0 20px 20px 0;border-color:transparent rgba(0,245,255,.25) transparent transparent}
+.avatar-circle{width:160px;height:160px;margin:0 auto 1.5rem;background:var(--dark-card2);border:1px solid rgba(0,245,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.avatar-ring-anim{position:absolute;width:90%;aspect-ratio:1;border:1px solid rgba(0,245,255,.15);border-radius:50%;animation:spin 12s linear infinite}
+.avatar-ring-anim2{position:absolute;width:75%;aspect-ratio:1;border:1px solid rgba(191,0,255,.1);border-radius:50%;animation:spin 18s linear infinite reverse}
+.avatar-initials{font-family:'Orbitron',monospace;font-size:2rem;font-weight:900;color:var(--neon-cyan);text-shadow:0 0 30px var(--neon-cyan);z-index:1}
+.avatar-name{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;color:var(--text-primary);text-align:center;margin-bottom:.3rem;letter-spacing:1px}
+.avatar-role{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-purple);text-align:center;letter-spacing:2px;margin-bottom:1.5rem}
+.info-row{display:flex;gap:.5rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid rgba(0,245,255,0.06);font-size:.88rem}
+.info-key{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--neon-cyan);letter-spacing:1px;flex-shrink:0;width:90px;padding-top:2px}
+.info-val{color:var(--text-secondary)}
+/* Bio panel */
+.bio-panel h3{font-family:'Orbitron',monospace;font-size:1rem;color:var(--neon-cyan);letter-spacing:2px;margin-bottom:1.2rem}
+.bio-panel p{color:var(--text-primary);margin-bottom:1.2rem;line-height:1.8}
+/* Terminal */
+.terminal{background:#000;border:1px solid rgba(0,245,255,0.2);padding:1.5rem 1.5rem 1.5rem;font-family:'Share Tech Mono',monospace;font-size:.8rem;color:#0f0;margin:1.5rem 0;position:relative}
+.terminal-bar{background:rgba(255,255,255,0.05);height:28px;display:flex;align-items:center;gap:6px;padding:0 10px;margin:-1.5rem -1.5rem 1rem;border-bottom:1px solid rgba(0,245,255,.1)}
+.t-dot{width:8px;height:8px;border-radius:50%}
+.t-dot-r{background:rgba(255,100,100,.4)}
+.t-dot-y{background:rgba(255,200,0,.4)}
+.t-dot-g{background:rgba(0,255,100,.4)}
+.t-title{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:2px;margin-left:auto;margin-right:auto}
+.t-line{margin:.3rem 0}
+.t-prompt{color:var(--neon-cyan)}
+.t-out{color:rgba(0,255,0,.8)}
+.t-dim{color:rgba(255,255,255,.25)}
+.cursor-blink{display:inline-block;width:7px;height:.9em;background:var(--neon-cyan);animation:blink 1s step-end infinite;vertical-align:text-bottom}
+/* Interests */
+/* Interests */
+.interests-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:1.5rem}
+@media(max-width:900px){.interests-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.interests-grid{grid-template-columns:1fr}}
+.interest-card{background:var(--dark-card);border:1px solid rgba(0,245,255,0.12);padding:1.5rem;transition:border-color .3s,transform .3s,box-shadow .3s;cursor:none;position:relative;user-select:none}
+.interest-card:hover{border-color:rgba(0,245,255,.4);transform:translateY(-3px);box-shadow:0 0 20px rgba(0,245,255,.07)}
+.interest-card.active{border-color:var(--neon-cyan);box-shadow:0 0 25px rgba(0,245,255,.15);transform:translateY(0)}
+.interest-card.active::after{content:'▼';position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);color:var(--neon-cyan);font-size:.7rem;z-index:10}
+.interest-icon{font-size:2rem;margin-bottom:.8rem;display:block}
+.interest-title{font-family:'Orbitron',monospace;font-size:.78rem;color:var(--neon-cyan);letter-spacing:1px;margin-bottom:.4rem}
+.interest-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.5}
+.interest-hint{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(0,245,255,.3);letter-spacing:2px;margin-top:.8rem;display:block;transition:color .2s}
+.interest-card:hover .interest-hint{color:rgba(0,245,255,.6)}
+.interest-panel-wrap{grid-column:1/-1;overflow:hidden;max-height:0;transition:max-height .55s cubic-bezier(0.4,0,0.2,1),opacity .4s ease;opacity:0}
+.interest-panel-wrap.open{max-height:1000px;opacity:1}
+.interest-panel{background:#07071a;border:1px solid rgba(0,245,255,.2);border-top:2px solid var(--neon-cyan);padding:2rem 2.5rem;position:relative}
+.interest-panel::before{content:attr(data-title);font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--neon-cyan);letter-spacing:3px;position:absolute;top:-10px;left:20px;background:#07071a;padding:0 10px}
+.panel-close{position:absolute;top:1rem;right:1.2rem;background:transparent;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.3rem .7rem;cursor:none;letter-spacing:2px;transition:background .2s}
+.panel-close:hover{background:rgba(0,245,255,.08)}
+.panel-inner{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+@media(max-width:700px){.panel-inner{grid-template-columns:1fr}}
+.panel-text h3{font-family:'Orbitron',monospace;font-size:1rem;color:var(--neon-cyan);margin-bottom:1rem;letter-spacing:1px}
+.panel-text p{color:var(--text-secondary);font-size:.92rem;line-height:1.8;margin-bottom:.9rem}
+.panel-text p:last-child{margin-bottom:0}
+.panel-imgs{display:grid;grid-template-columns:1fr;gap:.75rem}
+.panel-img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid rgba(0,245,255,.15);background:var(--dark-card);display:flex;align-items:center;justify-content:center;font-size:1rem;color:rgba(0,245,255,.2);text-align:center;letter-spacing:1px}
+.panel-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.panel-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);background:rgba(0,245,255,.04)}
+/* Goals */
+.goals-list{display:grid;gap:1rem;margin-top:1.5rem}
+.goal-item{display:flex;gap:1.2rem;align-items:flex-start;background:var(--dark-card);border:1px solid rgba(191,0,255,.12);padding:1.2rem 1.5rem;transition:border-color .3s}
+.goal-item:hover{border-color:rgba(191,0,255,.35)}
+.goal-num{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:900;color:rgba(191,0,255,.3);flex-shrink:0;line-height:1}
+.goal-text h4{font-family:'Orbitron',monospace;font-size:.82rem;color:var(--neon-purple);margin-bottom:.3rem;letter-spacing:1px}
+.goal-text p{font-size:.88rem;color:var(--text-secondary)}
+/* Section headers */
+.sec-tag{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-cyan);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:.4rem}
+.sec-title{font-family:'Orbitron',monospace;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--text-primary);margin-bottom:2rem;position:relative;display:inline-block}
+.sec-title::after{content:'';position:absolute;bottom:-6px;left:0;width:50%;height:2px;background:linear-gradient(90deg,var(--neon-cyan),transparent);box-shadow:0 0 8px var(--neon-cyan)}
+footer{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 3.5rem;border-top:1px solid rgba(0,245,255,0.08)}
+footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--text-secondary);letter-spacing:2px;margin-top:.4rem}
+.menu-btn{display:none;background:transparent;border:1px solid rgba(0,245,255,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .8rem;cursor:none;letter-spacing:2px}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}body{cursor:auto}.cursor,.cursor-ring{display:none}.content{padding:2rem 1rem}.page-hero{padding:2.5rem 1rem 1.5rem}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes load{to{width:100%}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">LAMY</div><div class="loader-text">LOADING PROFILE...</div><div class="loader-bar-wrap"><div class="loader-bar"></div></div></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="particles"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">LAMY://PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="achievements.html">Skills</a></li>
+    <li><a href="semester1.html">Sem.01</a></li>
+    <li><a href="semester2.html">Sem.02</a></li>
+    <li><a href="reflection.html">Reflection</a></li>
+  </ul>
+  <button class="menu-btn" onclick="toggleNav()">[ MENU ]</button>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <span class="page-tag">// PLAYER PROFILE //</span>
+    <h1 class="page-title">About <span>Me</span></h1>
+    <p class="page-sub">Get to know the player behind the portfolio — background, interests, and the mission ahead.</p>
+  </div>
+
+  <div class="content">
+    <div class="about-grid reveal">
+      <!-- Avatar panel -->
+      <div class="avatar-panel">
+        <div class="avatar-circle">
+          <div class="avatar-ring-anim"></div>
+          <div class="avatar-ring-anim2"></div>
+          <span class="avatar-initials">LAMY</span>
+        </div>
+        <div class="avatar-name">MAKHUN <div>Lokeshav Anand (Yash)</div></div>
+        <div class="avatar-role">// CS STUDENT — YEAR 01 //</div>
+
+        <div class="info-row"><span class="info-key">DEGREE</span><span class="info-val">BSc (Hons) Computer Science</span></div>
+        <div class="info-row"><span class="info-key">YEAR</span><span class="info-val">Year 1, Semester 2</span></div>
+        <div class="info-row"><span class="info-key">UNIVERSITY</span><span class="info-val">University of Mauritius</span></div>
+        <div class="info-row"><span class="info-key">LOCATION</span><span class="info-val">Mauritius</span></div>
+        <div class="info-row"><span class="info-key">EMAIL</span><span class="info-val">mlokeshav20@gmail.com</span></div>
+        <div class="info-row"><span class="info-key">GITHUB</span><span class="info-val"><a href="https://github.com/yash948-prog" style="color:inherit;">yash948-prog</a></span></div>
+        <div class="info-row"><span class="info-key">NICKNAMES</span><span class="info-val">Yash, Lamy</span></div>
+        <div class="info-row"><span class="info-key">STATUS</span><span class="info-val" style="color:var(--neon-green)">● Preparing for exams</span></div>
+      </div>
+
+      <!-- Bio -->
+      <div class="bio-panel">
+        <h3>// WHO AM I?</h3>
+        <p>Hi, I'm Yash, a passionate first-year Computer Science student driven by curiosity and a love for building things. I see every problem as a puzzle and every new technology as a new toolset to master.</p>
+        <p>This E-Portfolio is my digital journey log — a space where my academic work, personal growth, and professional development come together.</p>
+        <p style="color:rgba(255,255,255,.2);font-size:.82rem;font-style:italic;"></p>
+
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span class="t-title">terminal — profile.sh</span>
+          </div>
+          <div class="t-line"><span class="t-prompt">$ </span><span class="t-out">cat about_me.txt</span></div>
+          <div class="t-line t-out">&gt; Title: Yash's Secret File! Do not open!</div>
+          <div class="t-line t-out">&gt; Hobbies: Cooking, Programming, Video Games, Working Out (Occasionally) , Binge Watching Netflix Shows</div>
+          <div class="t-line t-out">&gt; Passion: Sleeping, Eating delicious home-made foods, Spending time with loved ones</div>
+          <div class="t-line t-out">&gt; Currently learning: My modules, Using Linux (Arch), How to unistall Microsoft Edge? (Seriously I need help)</div>
+          <div class="t-line t-out">&gt; Strenghts: Curious, Persistent, Adaptable, Team player</div>
+          <div class="t-line t-out">&gt; Weakness: Occasionally leaves things to the last minute</div>
+          <div class="t-line"><span class="t-prompt">$ </span><span class="cursor-blink"></span></div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Interests -->
+    <div class="reveal">
+      <span class="sec-tag">// SIDE QUESTS</span>
+      <h2 class="sec-title">Interests</h2>
+
+      <div class="interests-grid" id="interestsGrid">
+
+        <!-- Card 1 -->
+        <div class="interest-card" data-panel="coding" onclick="togglePanel('coding', this)">
+          <span class="interest-icon">💻</span>
+          <div class="interest-title">CODING</div>
+          <p class="interest-desc">Building projects, exploring algorithms, and learning new languages.</p>
+          <span class="interest-hint">[ CLICK TO EXPAND ]</span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="interest-card" data-panel="gaming" onclick="togglePanel('gaming', this)">
+          <span class="interest-icon">🎮</span>
+          <div class="interest-title">GAMING</div>
+          <p class="interest-desc">Strategy and puzzle games that sharpen problem-solving and quick thinking.</p>
+          <span class="interest-hint">[ CLICK TO EXPAND ]</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="interest-card" data-panel="cooking" onclick="togglePanel('cooking', this)">
+          <span class="interest-icon">🍳</span>
+          <div class="interest-title">COOKING</div>
+          <p class="interest-desc">Experimenting with new recipes and cuisines — cooking is just another form of problem-solving.</p>
+          <span class="interest-hint">[ CLICK TO EXPAND ]</span>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="interest-card" data-panel="fitness" onclick="togglePanel('fitness', this)">
+          <span class="interest-icon">💪</span>
+          <div class="interest-title">FITNESS</div>
+          <p class="interest-desc">Working out and staying active — discipline in the gym translates to discipline in study.</p>
+          <span class="interest-hint">[ CLICK TO EXPAND ]</span>
+        </div>
+
+        <!-- PANEL ROW — spans full width, inserted after cards via JS -->
+        <div class="interest-panel-wrap" id="panel-coding">
+          <div class="interest-panel" data-title="// CODING — SIDE QUEST DETAILS">
+            <button class="panel-close" onclick="closePanel(event)">[ CLOSE ✕ ]</button>
+            <div class="panel-inner">
+              <div class="panel-text">
+                <h3>MY CODING JOURNEY</h3>
+                <p>What started as solving programming homework and past papers during my Computer Science A-Level has grown into a genuine passion for coding. 
+                  Early on, I discovered how much I enjoyed breaking down complex problems into smaller, logical steps. 
+                  It was a skill that I first developed while working with Visual Basic during my HSCs. That mindset quickly became one of my strongest tools and got me first prize in Computer Science for Grade 12.</p>
+                <p>Now, as I pursue my Computer Science degree, I'm diving deeper into Python and expanding my horizons. 
+                  What began as a course requirement is gradually turning into a real interest, especially in areas like machine learning. 
+                  At the same time, I've been exploring web development, building projects like this very portfolio using HTML, CSS, and JavaScript to turn ideas into something tangible and interactive.</p>
+                <p>Beyond coursework, I've also started experimenting with Linux by installing Arch Linux on an old PC. 
+                  It's been a challenging but rewarding experience that's helping me better understand how systems work under the hood.</p>
+                
+                <p>That said, my journey has not been without reality checks. 
+                Several tough lab tests from my lecturer pushed me out of my comfort zone with its difficulty and unpredictability. 
+                But experiences like that have only strengthened my resilience. I was able to complete the challenges, demonstrating not just my Python skills, 
+                but also my ability to stay calm, think critically, and solve problems under pressure. </p>
+                <div class="panel-tags">
+                  <span class="panel-tag">Python</span>
+                  <span class="panel-tag">HTML / CSS</span>
+                  <span class="panel-tag">JavaScript</span>
+                  <span class="panel-tag">Java</span>
+                  <span class="panel-tag">Visual Basic</span>
+                  <span class="panel-tag">GitHub</span>
+                  <span class="panel-tag">Linux</span>
+                  <span class="panel-tag">MARIE simulator</span>
+                </div>
+              </div>
+              <div class="panel-imgs">
+                <div class="panel-img"><img class="panel-img" src="interests/linux.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/virtualmachine.jpeg" ></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="interest-panel-wrap" id="panel-gaming">
+          <div class="interest-panel" data-title="// GAMING — SIDE QUEST DETAILS">
+            <button class="panel-close" onclick="closePanel(event)">[ CLOSE ✕ ]</button>
+            <div class="panel-inner">
+              <div class="panel-text">
+                <h3>GAMING & PROBLEM SOLVING</h3>
+                <p>Gaming has been a part of my life for as long as I can remember, and over time I've come to appreciate how much it quietly trains the same skills I use in Computer Science. Whether it's planning several moves ahead, managing limited resources, or staying calm when things go wrong — these are lessons the screen has been teaching me all along.</p>
+                <p>I'm drawn to games that reward thinking over reflexes. The satisfaction of cracking a difficult puzzle or outmanoeuvring an opponent isn't so different from finally fixing a bug or completing a tricky algorithm — both require patience, logic, and a willingness to try again after failing.</p>
+                <p>Gaming has also shaped how I approach collaboration. Many titles demand clear communication, trust, and defined roles within a team — the same dynamics I've had to navigate in every group assignment this year.</p>
+                <div class="panel-tags">
+                  <span class="panel-tag">Strategy</span>
+                  <span class="panel-tag">Problem Solving</span>
+                  <span class="panel-tag">Teamwork</span>
+                  <span class="panel-tag">Persistence</span>
+                </div>
+              </div>
+              <div class="panel-imgs">
+                <div class="panel-img"><img class="panel-img" src="interests/gaming_setup.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/game1.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/game2.jpeg" ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="interest-panel-wrap" id="panel-cooking">
+          <div class="interest-panel" data-title="// COOKING — SIDE QUEST DETAILS">
+            <button class="panel-close" onclick="closePanel(event)">[ CLOSE ✕ ]</button>
+            <div class="panel-inner">
+              <div class="panel-text">
+                <h3>COOKING AS CREATIVITY</h3>
+                <p>Cooking is one of the few activities that completely takes me away from a screen, and I genuinely love it for that. There's something meditative about working through a recipe — following steps precisely, adjusting on the fly when something isn't going right, and ending up with something you can actually taste and share.</p>
+                <p>I especially appreciate home-cooked food — meals made with care carry a warmth that no takeaway can replicate. Spending time cooking is one of the ways I stay connected to the people I love, and it's become one of my favourite ways to unwind after a long day of studying or debugging.</p>
+                <p>If I had to draw a parallel: cooking and programming are surprisingly similar. Both require you to follow a logical process, both punish impatience, and both reward you with something satisfying when you get it right. A burnt dish and a runtime error feel equally painful — and equally fixable.</p>
+                <div class="panel-tags">
+                  <span class="panel-tag">Creativity</span>
+                  <span class="panel-tag">Home Cooking</span>
+                  <span class="panel-tag">Process Thinking</span>
+                  <span class="panel-tag">Patience</span>
+                </div>
+              </div>
+              <div class="panel-imgs">
+                <div class="panel-img"><img class="panel-img" src="interests/dish0.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/dish1.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/dish2.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/dish3.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/dish4.jpeg" ></div>
+                <div class="panel-img"><img class="panel-img" src="interests/dish5.jpeg" ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="interest-panel-wrap" id="panel-fitness">
+          <div class="interest-panel" data-title="// FITNESS — SIDE QUEST DETAILS">
+            <button class="panel-close" onclick="closePanel(event)">[ CLOSE ✕ ]</button>
+            <div class="panel-inner">
+              <div class="panel-text">
+                <h3>DISCIPLINE THROUGH FITNESS</h3>
+                <p>I won't pretend to be a dedicated gym-goer — "occasionally" is the most honest word for my workout frequency. But when I do train, I genuinely enjoy it. There's a mental reset that comes from physical effort that's hard to replicate anywhere else.</p>
+                <p>Exercise gives my brain a chance to breathe. After hours of staring at code or writing reports, stepping away and doing something physical helps me come back to problems with a clearer head. Some of my best ideas have come to me mid-workout, when I finally stopped forcing the answer and let my mind wander.</p>
+                <p>I see fitness the same way I see any long-term project: it doesn't require perfection, it requires consistency. Even occasional effort compounds over time — and that's a mindset I'm trying to carry into my studies and personal development as well.</p>
+                <div class="panel-tags">
+                  <span class="panel-tag">Discipline</span>
+                  <span class="panel-tag">Mental Reset</span>
+                  <span class="panel-tag">Consistency</span>
+                  <span class="panel-tag">Self-Improvement</span>
+                </div>
+              </div>
+              <div class="panel-imgs">
+                <div class="panel-img"><img class="panel-img" src="interests/gym.jpeg" ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end interests-grid -->
+    </div>
+    <!-- Goals -->
+    <div class="reveal" style="margin-top:3rem;">
+      <span class="sec-tag">// MISSION OBJECTIVES</span>
+      <h2 class="sec-title">Goals</h2>
+      <div class="goals-list">
+        <div class="goal-item">
+          <span class="goal-num">01</span>
+          <div class="goal-text">
+            <h4>SHORT-TERM — ACADEMIC</h4>
+            <p>Successfully complete Year 1 of BSc (Hons) Computer Science with strong grades and a solid foundation in core modules.</p>
+          </div>
+        </div>
+        <div class="goal-item">
+          <span class="goal-num">02</span>
+          <div class="goal-text">
+            <h4>MID-TERM — PROFESSIONAL</h4>
+            <p>Secure an internship or placement in the IT industry to apply academic knowledge in a real-world environment.</p>
+          </div>
+        </div>
+        <div class="goal-item">
+          <span class="goal-num">03</span>
+          <div class="goal-text">
+            <h4>LONG-TERM — CAREER</h4>
+            <p>Graduate with honours and pursue a career in Game Development , Computer Engineering, Cybersecurity or Entrepreneurship </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 MAKHUN Lokeshav Anand — BSc (Hons) Computer Science — GitHub Pages</p>
+  <p>// PROFILE LOADED //</p>
+</footer>
+<script src="shared.js"></script>
+<script>
+  // Keep all panels permanently at the END of the grid — never move them.
+  // Just show/hide with the .open class. No DOM manipulation = no layout shift.
+
+  function togglePanel(id, card) {
+    const allCards = document.querySelectorAll('.interest-card');
+    const allPanels = document.querySelectorAll('.interest-panel-wrap');
+    const targetPanel = document.getElementById('panel-' + id);
+    const isOpen = targetPanel.classList.contains('open');
+
+    // Close everything first
+    allPanels.forEach(p => p.classList.remove('open'));
+    allCards.forEach(c => c.classList.remove('active'));
+
+    if (!isOpen) {
+      targetPanel.classList.add('open');
+      card.classList.add('active');
+      setTimeout(() => {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    }
+  }
+
+  function closePanel(e) {
+    e.stopPropagation();
+    document.querySelectorAll('.interest-panel-wrap').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.interest-card').forEach(c => c.classList.remove('active'));
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.interest-panel-wrap').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.interest-card').forEach(c => c.classList.remove('active'));
+    }
+  });
+</script>
+</body>
+</html>
