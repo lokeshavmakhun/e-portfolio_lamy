@@ -3,6 +3,5 @@ PAGES:
 - index.html       (Home)
 - about.html       (About Me)
 - achievements.html (Skills & Achievements)
-- semester1.html   (Semester 1 Projects)
-- semester2.html   (Semester 2 Projects)
+- projects.html    (Projects & Coursework)
 - reflection.html  (Reflection)

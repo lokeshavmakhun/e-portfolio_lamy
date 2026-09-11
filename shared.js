@@ -4,52 +4,23 @@
 window.addEventListener('load', () => {
   setTimeout(() => {
     const l = document.getElementById('loader');
-    if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 600); }
-  }, 1600);
+    if (l) { l.classList.add('hidden'); setTimeout(() => l.remove(), 500); }
+  }, 650);
 });
-
-// ── Custom cursor ──
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
-if (cursor && cursorRing) {
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-  function animateRing() {
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-  document.querySelectorAll('a, button, .card, .project-card, .achievement-item, .nav-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px'; cursor.style.height = '20px';
-      cursorRing.style.width = '50px'; cursorRing.style.height = '50px';
-      cursorRing.style.borderColor = 'rgba(191,0,255,0.6)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px'; cursor.style.height = '12px';
-      cursorRing.style.width = '36px'; cursorRing.style.height = '36px';
-      cursorRing.style.borderColor = 'rgba(0,245,255,0.5)';
-    });
-  });
-}
 
 // ── Particles ──
 const canvas = document.getElementById('particles');
-if (canvas) {
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (canvas && !prefersReduced) {
   const ctx = canvas.getContext('2d');
   let particles = [];
   function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
-  for (let i = 0; i < 55; i++) {
+  for (let i = 0; i < 40; i++) {
     particles.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
-      r: Math.random()*1.4+0.3, vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
-      a: Math.random()*.45+.08, c: Math.random()>.5?'0,245,255':'191,0,255' });
+      r: Math.random()*1.3+0.3, vx: (Math.random()-.5)*.22, vy: (Math.random()-.5)*.22,
+      a: Math.random()*.32+.05, c: Math.random()>.5?'0,224,255':'150,120,255' });
   }
   function drawParticles() {
     ctx.clearRect(0,0,canvas.width,canvas.height);

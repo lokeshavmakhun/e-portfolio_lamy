@@ -3,136 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAMY | Skills & Achievements</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>LAMY | Skills &amp; Achievements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--neon-cyan:#00f5ff;--neon-purple:#bf00ff;--neon-green:#39ff14;--neon-orange:#ff6b00;--dark-bg:#050510;--dark-card:#0a0a1f;--dark-card2:#0d0d25;--text-primary:#e8e8ff;--text-secondary:#8888bb}
+:root{--neon-cyan:#22d3ee;--neon-purple:#a78bfa;--neon-green:#34d399;--neon-orange:#fbbf24;--dark-bg:#0b0e14;--dark-card:#141922;--dark-card2:#1a202b;--text-primary:#e7eaf0;--text-secondary:#98a2b3;--border:rgba(255,255,255,0.08)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--dark-bg);color:var(--text-primary);font-family:'Rajdhani',sans-serif;font-size:17px;line-height:1.7;overflow-x:hidden;cursor:none}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:1}
-.cursor{width:12px;height:12px;background:var(--neon-cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--neon-cyan);transition:width .2s,height .2s}
-.cursor-ring{width:36px;height:36px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,5,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,245,255,0.15);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
-.nav-logo{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--neon-cyan);text-decoration:none;letter-spacing:2px;text-shadow:0 0 20px var(--neon-cyan)}
+body{background:var(--dark-bg);color:var(--text-primary);font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.022) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(11,14,20,0.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Orbitron',monospace;font-size:.92rem;font-weight:700;color:var(--neon-cyan);text-decoration:none;letter-spacing:1.5px}
 .nav-links{display:flex;gap:0;list-style:none}
-.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;text-transform:uppercase;padding:0 1.1rem;height:64px;display:flex;align-items:center;border-right:1px solid rgba(0,245,255,0.06);transition:color .2s,background .2s;position:relative}
-.nav-links a:first-child{border-left:1px solid rgba(0,245,255,0.06)}
-.nav-links a:hover,.nav-links a.active{color:var(--neon-cyan);background:rgba(0,245,255,0.04)}
-.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan)}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;text-transform:uppercase;padding:0 1.1rem;height:64px;display:flex;align-items:center;border-right:1px solid rgba(34,211,238,0.06);transition:color .2s,background .2s;position:relative}
+.nav-links a:first-child{border-left:1px solid rgba(34,211,238,0.06)}
+.nav-links a:hover,.nav-links a.active{color:var(--neon-cyan);background:rgba(34,211,238,0.04)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--neon-cyan)}
 canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
 #loader{position:fixed;inset:0;background:var(--dark-bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s}
 #loader.hidden{opacity:0;pointer-events:none}
-.loader-logo{font-family:'Orbitron',monospace;font-size:2.5rem;font-weight:900;color:var(--neon-cyan);text-shadow:0 0 40px var(--neon-cyan)}
+.loader-logo{font-family:'Orbitron',monospace;font-size:1.9rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px}
 .loader-text{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--neon-cyan);letter-spacing:4px}
-.loader-bar-wrap{width:280px;height:2px;background:rgba(0,245,255,0.1)}
-.loader-bar{height:100%;background:var(--neon-cyan);box-shadow:0 0 10px var(--neon-cyan);animation:load 1.6s ease-in-out forwards;width:0%}
+.loader-bar-wrap{width:280px;height:2px;background:rgba(34,211,238,0.1)}
+.loader-bar{height:100%;background:var(--neon-cyan);animation:load .6s ease-in-out forwards;width:0%}
 main{position:relative;z-index:2;padding-top:64px}
-.page-hero{padding:4rem 6% 2rem;border-bottom:1px solid rgba(0,245,255,0.08)}
-.page-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-cyan);letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:.6rem;opacity:0;animation:fadeUp .5s .2s forwards}
-.page-title{font-family:'Orbitron',monospace;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--text-primary);opacity:0;animation:fadeUp .5s .4s forwards;line-height:1.1}
-.page-title span{color:var(--neon-orange);text-shadow:0 0 30px var(--neon-orange)}
+.page-hero{padding:4rem 6% 2rem;border-bottom:1px solid rgba(34,211,238,0.08)}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-cyan);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:.6rem;opacity:0;animation:fadeUp .5s .2s forwards}
+.page-title{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:var(--text-primary);opacity:0;animation:fadeUp .5s .4s forwards;line-height:1.12}
+.page-title span{color:var(--neon-orange)}
 .page-sub{font-size:1rem;color:var(--text-secondary);margin-top:1rem;max-width:600px;opacity:0;animation:fadeUp .5s .6s forwards}
 .content{padding:3rem 6%;max-width:1200px}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .sec-tag{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-cyan);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:.4rem}
 .sec-title{font-family:'Orbitron',monospace;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--text-primary);margin-bottom:2rem;position:relative;display:inline-block}
-.sec-title::after{content:'';position:absolute;bottom:-6px;left:0;width:50%;height:2px;background:linear-gradient(90deg,var(--neon-cyan),transparent);box-shadow:0 0 8px var(--neon-cyan)}
+.sec-title::after{content:'';position:absolute;bottom:-6px;left:0;width:50%;height:2px;background:linear-gradient(90deg,var(--neon-cyan),transparent)}
+
+/* ── Academic record ── */
+.academic{margin-bottom:3.5rem}
+.transcript-wrap{overflow-x:auto;border:1px solid var(--border);background:var(--dark-card);margin-top:1.2rem}
+.transcript{width:100%;border-collapse:collapse;font-size:.9rem;min-width:460px}
+.transcript th,.transcript td{text-align:left;padding:.85rem 1.1rem;border-bottom:1px solid var(--border)}
+.transcript thead th{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary);background:var(--dark-card2)}
+.transcript tbody tr:last-child td{border-bottom:none}
+.transcript td:first-child{color:var(--text-primary)}
+.transcript .code{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--text-secondary)}
+.grade{font-family:'Orbitron',monospace;font-weight:700;font-size:.8rem;padding:.15rem .55rem;border:1px solid rgba(52,211,153,.35);color:var(--neon-green);background:rgba(52,211,153,.06);display:inline-block}
+.transcript-meta{display:flex;flex-wrap:wrap;gap:1px;background:var(--border);border:1px solid var(--border);border-top:none}
+.tm-cell{flex:1 1 120px;background:var(--dark-card);padding:1rem 1.1rem}
+.tm-num{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:800;color:var(--neon-cyan);display:block}
+.tm-lbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary);margin-top:.25rem;display:block}
+.transcript-note{font-size:.82rem;color:var(--text-secondary);margin-top:.9rem}
+.transcript-note a{color:var(--neon-cyan)}
+
+/* ── Leadership list ── */
+.lead-list{display:grid;gap:1rem;margin-top:1.2rem}
+.lead-item{background:var(--dark-card);border:1px solid var(--border);border-left:2px solid var(--neon-purple);padding:1.1rem 1.4rem}
+.lead-item h4{font-family:'Orbitron',monospace;font-size:.85rem;color:var(--text-primary);letter-spacing:.5px;margin-bottom:.3rem}
+.lead-item .lead-org{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon-purple);display:block;margin-bottom:.5rem}
+.lead-item p{font-size:.88rem;color:var(--text-secondary);margin:0}
 
 /* ── Skill tiles ── */
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem;margin-bottom:3rem}
-.skill-tile{background:var(--dark-card);border:1px solid rgba(0,245,255,0.1);padding:1.4rem 1rem;text-align:center;cursor:none;transition:border-color .3s,box-shadow .3s,transform .3s;position:relative;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
-.skill-tile::before{content:'';position:absolute;top:0;right:12px;width:0;height:0;border-style:solid;border-width:0 12px 12px 0;border-color:transparent rgba(0,245,255,.15) transparent transparent;transition:border-color .3s}
-.skill-tile:hover{border-color:rgba(0,245,255,.45);box-shadow:0 0 22px rgba(0,245,255,.1);transform:translateY(-4px)}
+.skill-tile{background:var(--dark-card);border:1px solid rgba(34,211,238,0.1);padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:border-color .3s,box-shadow .3s,transform .3s;position:relative;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.skill-tile::before{content:'';position:absolute;top:0;right:12px;width:0;height:0;border-style:solid;border-width:0 12px 12px 0;border-color:transparent rgba(34,211,238,.15) transparent transparent;transition:border-color .3s}
+.skill-tile:hover{border-color:rgba(34,211,238,.45);box-shadow:0 0 22px rgba(34,211,238,.1);transform:translateY(-4px)}
 .skill-tile:hover::before{border-color:transparent var(--neon-cyan) transparent transparent}
-.skill-tile.active{border-color:var(--neon-cyan);box-shadow:0 0 28px rgba(0,245,255,.2)}
+.skill-tile.active{border-color:var(--neon-cyan);box-shadow:0 0 28px rgba(34,211,238,.2)}
 .skill-tile-icon{font-size:1.8rem;display:block;margin-bottom:.6rem}
 .skill-tile-name{font-family:'Orbitron',monospace;font-size:.68rem;color:var(--text-primary);letter-spacing:1px;display:block;margin-bottom:.3rem}
 .skill-tile-type{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--text-secondary);letter-spacing:1px;display:block}
-.skill-tile-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.3);letter-spacing:2px;display:block;margin-top:.6rem;transition:color .2s}
-.skill-tile:hover .skill-tile-hint,.skill-tile.active .skill-tile-hint{color:rgba(0,245,255,.8)}
+.skill-tile-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(34,211,238,.3);letter-spacing:2px;display:block;margin-top:.6rem;transition:color .2s}
+.skill-tile:hover .skill-tile-hint,.skill-tile.active .skill-tile-hint{color:rgba(34,211,238,.8)}
 
 /* ── Modal overlay ── */
 .skill-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
 .skill-modal-overlay.open{opacity:1;pointer-events:all}
-.skill-modal{background:#07071a;border:1px solid rgba(0,245,255,.25);border-top:2px solid var(--neon-cyan);width:100%;max-width:860px;max-height:90vh;overflow-y:auto;position:relative}
+.skill-modal{background:#07071a;border:1px solid rgba(34,211,238,.25);border-top:2px solid var(--neon-cyan);width:100%;max-width:860px;max-height:90vh;overflow-y:auto;position:relative}
 .skill-modal-overlay.open .skill-modal{animation:modalIn .35s ease forwards}
 @keyframes modalIn{from{transform:translateY(28px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
-.modal-header{padding:2rem 2rem 1.4rem;border-bottom:1px solid rgba(0,245,255,.08);display:flex;align-items:center;gap:1.2rem}
+.modal-header{padding:2rem 2rem 1.4rem;border-bottom:1px solid rgba(34,211,238,.08);display:flex;align-items:center;gap:1.2rem}
 .modal-header-icon{font-size:2.4rem;flex-shrink:0}
-.modal-title{font-family:'Orbitron',monospace;font-size:1.15rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px;display:block;margin-bottom:.25rem;text-shadow:0 0 20px rgba(0,245,255,.4)}
+.modal-title{font-family:'Orbitron',monospace;font-size:1.15rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px;display:block;margin-bottom:.25rem}
 .modal-subtitle{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-secondary);letter-spacing:2px}
-.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:none;letter-spacing:2px;transition:background .2s,border-color .2s}
-.modal-close:hover{background:rgba(0,245,255,.08);border-color:var(--neon-cyan)}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(34,211,238,.2);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:pointer;letter-spacing:2px;transition:background .2s,border-color .2s}
+.modal-close:hover{background:rgba(34,211,238,.08);border-color:var(--neon-cyan)}
 .modal-body{padding:1.8rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 @media(max-width:620px){.modal-body{grid-template-columns:1fr}}
 .modal-desc p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:.9rem}
 .modal-desc p:last-child{margin-bottom:0}
 .modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
-.modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);background:rgba(0,245,255,.04)}
+.modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(34,211,238,.2);color:var(--neon-cyan);background:rgba(34,211,238,.04)}
 .modal-imgs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.modal-img-slot{width:100%;aspect-ratio:4/3;border:1px solid rgba(0,245,255,.12);background:rgba(0,245,255,.02);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(0,245,255,.2);letter-spacing:1px;text-align:center;padding:.5rem;overflow:hidden}
+.modal-img-slot{width:100%;aspect-ratio:4/3;border:1px solid rgba(34,211,238,.12);background:rgba(34,211,238,.02);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(34,211,238,.2);letter-spacing:1px;text-align:center;padding:.5rem;overflow:hidden}
 .modal-img-slot img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ── Badge clusters ── */
 .badge-section{margin-bottom:3rem}
 .badge-cluster{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
-.badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:.35rem .85rem;border:1px solid rgba(0,245,255,.25);color:var(--neon-cyan);background:rgba(0,245,255,.04);letter-spacing:1px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s,border-color .2s}
-.badge:hover{background:rgba(0,245,255,.12);border-color:var(--neon-cyan)}
-.badge-purple{border-color:rgba(191,0,255,.25);color:var(--neon-purple);background:rgba(191,0,255,.04)}
-.badge-purple:hover{background:rgba(191,0,255,.12);border-color:var(--neon-purple)}
-.badge-orange{border-color:rgba(255,107,0,.25);color:var(--neon-orange);background:rgba(255,107,0,.04)}
-.badge-orange:hover{background:rgba(255,107,0,.12);border-color:var(--neon-orange)}
+.badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:.35rem .85rem;border:1px solid rgba(34,211,238,.25);color:var(--neon-cyan);background:rgba(34,211,238,.04);letter-spacing:1px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s,border-color .2s}
+.badge:hover{background:rgba(34,211,238,.12);border-color:var(--neon-cyan)}
+.badge-purple{border-color:rgba(167,139,250,.25);color:var(--neon-purple);background:rgba(167,139,250,.04)}
+.badge-purple:hover{background:rgba(167,139,250,.12);border-color:var(--neon-purple)}
+.badge-orange{border-color:rgba(251,191,36,.25);color:var(--neon-orange);background:rgba(251,191,36,.04)}
+.badge-orange:hover{background:rgba(251,191,36,.12);border-color:var(--neon-orange)}
 
 /* ── Certificate cards ── */
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;margin-bottom:3rem}
-.cert-card{background:var(--dark-card);border:1px solid rgba(255,107,0,0.18);position:relative;cursor:none;transition:border-color .3s,box-shadow .3s,transform .3s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
-.cert-card::before{content:'';position:absolute;top:0;right:16px;width:0;height:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent rgba(255,107,0,.3) transparent transparent;transition:border-color .3s;z-index:1}
-.cert-card:hover{border-color:rgba(255,107,0,.6);box-shadow:0 0 28px rgba(255,107,0,.12);transform:translateY(-4px)}
+.cert-card{background:var(--dark-card);border:1px solid rgba(251,191,36,0.18);position:relative;cursor:pointer;transition:border-color .3s,box-shadow .3s,transform .3s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+.cert-card::before{content:'';position:absolute;top:0;right:16px;width:0;height:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent rgba(251,191,36,.3) transparent transparent;transition:border-color .3s;z-index:1}
+.cert-card:hover{border-color:rgba(251,191,36,.6);box-shadow:0 0 28px rgba(251,191,36,.12);transform:translateY(-4px)}
 .cert-card:hover::before{border-color:transparent var(--neon-orange) transparent transparent}
-.cert-card.active{border-color:var(--neon-orange);box-shadow:0 0 32px rgba(255,107,0,.2)}
+.cert-card.active{border-color:var(--neon-orange);box-shadow:0 0 32px rgba(251,191,36,.2)}
 /* Thumbnail area */
-.cert-thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#08080f;border-bottom:1px solid rgba(255,107,0,.12);position:relative;display:flex;align-items:center;justify-content:center}
+.cert-thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#08080f;border-bottom:1px solid rgba(251,191,36,.12);position:relative;display:flex;align-items:center;justify-content:center}
 .cert-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .cert-card:hover .cert-thumb img{transform:scale(1.05)}
 .cert-thumb-placeholder{font-size:3rem;opacity:.25}
-.cert-thumb-overlay{position:absolute;inset:0;background:rgba(255,107,0,.0);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-orange);letter-spacing:3px;background:rgba(5,5,16,.6)}
+.cert-thumb-overlay{position:absolute;inset:0;background:rgba(251,191,36,.0);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--neon-orange);letter-spacing:3px;background:rgba(5,5,16,.6)}
 .cert-card:hover .cert-thumb-overlay{opacity:1}
 /* Card body */
 .cert-body{padding:1.2rem 1.3rem 1.4rem}
 .cert-type-badge{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--neon-orange);text-transform:uppercase;margin-bottom:.5rem;display:block}
 .cert-name{font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--text-primary);letter-spacing:.5px;margin-bottom:.5rem;line-height:1.3}
 .cert-issuer{font-size:.8rem;color:var(--text-secondary);margin-bottom:.4rem}
-.cert-date{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(255,107,0,.5);letter-spacing:1px}
-.cert-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(255,107,0,.3);letter-spacing:2px;display:block;margin-top:.7rem;transition:color .2s}
-.cert-card:hover .cert-hint{color:rgba(255,107,0,.7)}
+.cert-date{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(251,191,36,.5);letter-spacing:1px}
+.cert-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(251,191,36,.3);letter-spacing:2px;display:block;margin-top:.7rem;transition:color .2s}
+.cert-card:hover .cert-hint{color:rgba(251,191,36,.7)}
 
 /* ── Certificate modal ── */
 .cert-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
 .cert-modal-overlay.open{opacity:1;pointer-events:all}
-.cert-modal{background:#07071a;border:1px solid rgba(255,107,0,.3);border-top:2px solid var(--neon-orange);width:100%;max-width:880px;max-height:92vh;overflow-y:auto;position:relative}
+.cert-modal{background:#07071a;border:1px solid rgba(251,191,36,.3);border-top:2px solid var(--neon-orange);width:100%;max-width:880px;max-height:92vh;overflow-y:auto;position:relative}
 .cert-modal-overlay.open .cert-modal{animation:certModalIn .35s ease forwards}
 @keyframes certModalIn{from{transform:translateY(28px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
-.cert-modal-header{padding:1.8rem 2rem 1.3rem;border-bottom:1px solid rgba(255,107,0,.1);display:flex;align-items:flex-start;gap:1.2rem}
+.cert-modal-header{padding:1.8rem 2rem 1.3rem;border-bottom:1px solid rgba(251,191,36,.1);display:flex;align-items:flex-start;gap:1.2rem}
 .cert-modal-icon{font-size:2.4rem;flex-shrink:0;margin-top:.1rem}
-.cert-modal-title{font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;color:var(--neon-orange);letter-spacing:2px;display:block;margin-bottom:.3rem;text-shadow:0 0 20px rgba(255,107,0,.4)}
+.cert-modal-title{font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;color:var(--neon-orange);letter-spacing:2px;display:block;margin-bottom:.3rem}
 .cert-modal-issuer{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-secondary);letter-spacing:2px;display:block;margin-bottom:.2rem}
-.cert-modal-date{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(255,107,0,.5);letter-spacing:1px}
-.cert-modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(255,107,0,.25);color:var(--neon-orange);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:none;letter-spacing:2px;transition:background .2s}
-.cert-modal-close:hover{background:rgba(255,107,0,.1)}
+.cert-modal-date{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(251,191,36,.5);letter-spacing:1px}
+.cert-modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(251,191,36,.25);color:var(--neon-orange);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:pointer;letter-spacing:2px;transition:background .2s}
+.cert-modal-close:hover{background:rgba(251,191,36,.1)}
 .cert-modal-body{padding:1.8rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 @media(max-width:640px){.cert-modal-body{grid-template-columns:1fr}}
 .cert-modal-desc p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:.9rem}
 .cert-modal-desc p:last-of-type{margin-bottom:0}
 .cert-modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
-.cert-modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(255,107,0,.2);color:var(--neon-orange);background:rgba(255,107,0,.04)}
+.cert-modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(251,191,36,.2);color:var(--neon-orange);background:rgba(251,191,36,.04)}
 .cert-modal-img-wrap{display:flex;flex-direction:column;gap:.85rem}
-.cert-full-img{width:100%;border:1px solid rgba(255,107,0,.2);display:block;background:#000}
+.cert-full-img{width:100%;border:1px solid rgba(251,191,36,.2);display:block;background:#000}
 .cert-full-img img{width:100%;display:block;object-fit:contain}
-.cert-full-placeholder{width:100%;aspect-ratio:4/3;border:1px dashed rgba(255,107,0,.15);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.65rem;color:rgba(255,107,0,.2);letter-spacing:1px;text-align:center;padding:1rem}
-.cert-view-btn{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.2rem;border:1px solid rgba(255,107,0,.3);background:rgba(255,107,0,.06);text-decoration:none;transition:background .2s,border-color .2s}
-.cert-view-btn:hover{background:rgba(255,107,0,.14);border-color:rgba(255,107,0,.6)}
+.cert-full-placeholder{width:100%;aspect-ratio:4/3;border:1px dashed rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.65rem;color:rgba(251,191,36,.2);letter-spacing:1px;text-align:center;padding:1rem}
+.cert-view-btn{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.2rem;border:1px solid rgba(251,191,36,.3);background:rgba(251,191,36,.06);text-decoration:none;transition:background .2s,border-color .2s}
+.cert-view-btn:hover{background:rgba(251,191,36,.14);border-color:rgba(251,191,36,.6)}
 .cert-view-btn-icon{font-size:1.3rem;flex-shrink:0}
 .cert-view-btn-text{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-orange);letter-spacing:1px}
 .cert-view-btn-sub{font-size:.7rem;color:var(--text-secondary);margin-top:.15rem}
@@ -158,18 +181,16 @@ main{position:relative;z-index:2;padding-top:64px}
   transform: scale(1.52); /* Subtle zoom on hover */
 }
 
-footer{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 3.5rem;border-top:1px solid rgba(0,245,255,0.08)}
+footer{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 3.5rem;border-top:1px solid rgba(34,211,238,0.08)}
 footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--text-secondary);letter-spacing:2px;margin-top:.4rem}
-.menu-btn{display:none;background:transparent;border:1px solid rgba(0,245,255,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .8rem;cursor:none;letter-spacing:2px}
-@media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}body{cursor:auto}.cursor,.cursor-ring{display:none}.content{padding:2rem 1rem}.page-hero{padding:2.5rem 1rem 1.5rem}}
+.menu-btn{display:none;background:transparent;border:1px solid rgba(34,211,238,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .8rem;cursor:pointer;letter-spacing:2px}
+@media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}.content{padding:2rem 1rem}.page-hero{padding:2.5rem 1rem 1.5rem}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes load{to{width:100%}}
 </style>
 </head>
 <body>
-<div id="loader"><div class="loader-logo">LAMY</div><div class="loader-text">LOADING SKILL TREE...</div><div class="loader-bar-wrap"><div class="loader-bar"></div></div></div>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div id="loader"><div class="loader-logo">LAMY</div><div class="loader-text">LOADING</div><div class="loader-bar-wrap"><div class="loader-bar"></div></div></div>
 <canvas id="particles"></canvas>
 
 <nav>
@@ -178,8 +199,7 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="achievements.html" class="active">Skills</a></li>
-    <li><a href="semester1.html">Sem.01</a></li>
-    <li><a href="semester2.html">Sem.02</a></li>
+    <li><a href="projects.html">Projects</a></li>
     <li><a href="reflection.html">Reflection</a></li>
   </ul>
   <button class="menu-btn" onclick="toggleNav()">[ MENU ]</button>
@@ -187,16 +207,45 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 
 <main>
   <div class="page-hero">
-    <span class="page-tag">// SKILL TREE & ACHIEVEMENTS //</span>
+    <span class="page-tag">Skills &amp; Achievements</span>
     <h1 class="page-title">Skills &amp; <span>Achievements</span></h1>
-    <p class="page-sub">Click any skill to open a detailed breakdown. Work in Progress </p>
+    <p class="page-sub">My technical and professional skills, the tools I work with, my Year 1 academic record, a hackathon win, and the certificates behind it.</p>
   </div>
 
   <div class="content">
 
+    <!-- Academic Record -->
+    <div class="academic reveal">
+      <span class="sec-tag">Academic Record</span>
+      <h2 class="sec-title">Year 1 Transcript</h2>
+      <p style="color:var(--text-secondary);max-width:640px;">BSc (Hons) Computer Science (Full-Time), University of Mauritius — yearly modules, May/June 2026 examinations.</p>
+      <div class="transcript-wrap">
+        <table class="transcript">
+          <thead>
+            <tr><th>Module</th><th>Code</th><th>Credits</th><th>Grade</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Communication &amp; Business Skills for IT</td><td class="code">ICDT1016Y</td><td>12</td><td><span class="grade">A+</span></td></tr>
+            <tr><td>Computer Programming</td><td class="code">ICDT1201Y</td><td>12</td><td><span class="grade">A+</span></td></tr>
+            <tr><td>Database Systems</td><td class="code">ICDT1202Y</td><td>12</td><td><span class="grade">A+</span></td></tr>
+            <tr><td>Computer Organisation &amp; Architecture</td><td class="code">ICT1206Y</td><td>12</td><td><span class="grade">A+</span></td></tr>
+            <tr><td>Computational Mathematics</td><td class="code">ICT1207Y</td><td>12</td><td><span class="grade">A+</span></td></tr>
+            <tr><td>Software Engineering Principles</td><td class="code">ICT1208Y</td><td>12</td><td><span class="grade">A</span></td></tr>
+          </tbody>
+        </table>
+        <div class="transcript-meta">
+          <div class="tm-cell"><span class="tm-num">4.00</span><span class="tm-lbl">GPA (Year 1)</span></div>
+          <div class="tm-cell"><span class="tm-num">85.5%</span><span class="tm-lbl">Cumulative CPA</span></div>
+          <div class="tm-cell"><span class="tm-num">85.48%</span><span class="tm-lbl">Yearly average</span></div>
+          <div class="tm-cell"><span class="tm-num">72 / 72</span><span class="tm-lbl">Credits earned</span></div>
+        </div>
+      </div>
+      <p class="transcript-note">Provisional transcript issued 28 July 2026 · Student ID 2514204 · <a href="docs/UOM-Transcript-Year1.pdf" target="_blank" rel="noopener">View full transcript (PDF)</a></p>
+    </div>
+
     <!-- Technical Skills -->
     <div class="reveal">
-      <span class="sec-tag">// TECHNICAL SKILL TREE</span>
+      <span class="sec-tag">Technical</span>
       <h2 class="sec-title">Technical Skills</h2>
       <div class="skills-grid">
 <!--  <div class="skill-tile" onclick="openSkillModal('python', event)">   ---->
@@ -209,7 +258,7 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 <!--  <div class="skill-tile" onclick="openSkillModal('html', event)"  ---->
         <div class="skill-tile">
           <span class="skill-tile-icon">🌐</span>
-          <span class="skill-tile-name">HTML/CSS/<div>Javascript</div></span>
+          <span class="skill-tile-name">HTML · CSS · JS</span>
           <span class="skill-tile-type">Web</span>
           <span class="skill-tile-hint"></span> <!--Here put TAP TO ACCESS for every skill after you complete the description ---->
         </div>
@@ -241,13 +290,43 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
           <span class="skill-tile-type">Programming</span>
           <span class="skill-tile-hint"></span>
         </div>
+        <div class="skill-tile">
+          <span class="skill-tile-icon">🤖</span>
+          <span class="skill-tile-name">AI / LLMs</span>
+          <span class="skill-tile-type">LLM integration &amp; agents</span>
+          <span class="skill-tile-hint"></span>
+        </div>
+        <div class="skill-tile">
+          <span class="skill-tile-icon">⚡</span>
+          <span class="skill-tile-name">FastAPI</span>
+          <span class="skill-tile-type">Backend</span>
+          <span class="skill-tile-hint"></span>
+        </div>
+        <div class="skill-tile">
+          <span class="skill-tile-icon">📱</span>
+          <span class="skill-tile-name">React Native</span>
+          <span class="skill-tile-type">Mobile / Frontend</span>
+          <span class="skill-tile-hint"></span>
+        </div>
+        <div class="skill-tile">
+          <span class="skill-tile-icon">🐳</span>
+          <span class="skill-tile-name">Docker</span>
+          <span class="skill-tile-type">Containers</span>
+          <span class="skill-tile-hint"></span>
+        </div>
+        <div class="skill-tile">
+          <span class="skill-tile-icon">🔧</span>
+          <span class="skill-tile-name">C &amp; Java</span>
+          <span class="skill-tile-type">Programming</span>
+          <span class="skill-tile-hint"></span>
+        </div>
 
       </div>
     </div>
 
     <!-- Soft Skills -->
     <div class="reveal">
-      <span class="sec-tag">// SOFT SKILL TREE</span>
+      <span class="sec-tag">Professional</span>
       <h2 class="sec-title">Soft Skills</h2>
       <div class="skills-grid">
 <!--  <div class="skill-tile" onclick="openSkillModal('communication', event)"  ---->
@@ -284,39 +363,64 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 
     <!-- Tools & Platforms -->
     <div class="badge-section reveal">
-      <span class="sec-tag">// INVENTORY</span>
+      <span class="sec-tag">Tools</span>
       <h2 class="sec-title">Tools &amp; Platforms</h2>
       <div class="badge-cluster">
-        <span class="badge">VS Code</span>
         <span class="badge">Git</span>
-        <span class="badge"><a href="https://github.com" style="text-decoration: none; color:var(--neon-cyan);" target="_blank">GitHub</a></span>
+        <span class="badge"><a href="https://github.com/lokeshavmakhun" style="text-decoration:none;color:var(--neon-cyan);" target="_blank" rel="noopener">GitHub</a></span>
         <span class="badge">GitHub Pages</span>
-        <span class="badge">MS Office</span>
-        <span class="badge">Google Workspace</span>
+        <span class="badge">Docker</span>
+        <span class="badge">FastAPI</span>
+        <span class="badge">React Native</span>
+        <span class="badge">Django</span>
+        <span class="badge">MS SQL Server</span>
+        <span class="badge">MongoDB</span>
+        <span class="badge">VS Code</span>
         <span class="badge">Figma</span>
-        <span class="badge"><a href="https://linkedin.com" style="text-decoration: none; color:var(--neon-cyan);" target="_blank">LinkedIn</a></span>
+        <span class="badge">Linux (Arch)</span>
+        <span class="badge">VirtualBox</span>
+        <span class="badge">MARIE Simulator</span>
+        <span class="badge">Logisim</span>
+        <span class="badge">Microsoft 365</span>
+        <span class="badge">Google Workspace</span>
+        <span class="badge"><a href="https://www.linkedin.com/in/yashmakhun/" style="text-decoration:none;color:var(--neon-cyan);" target="_blank" rel="noopener">LinkedIn</a></span>
       </div>
     </div>
 
     <!-- Academic Achievements / Certificates -->
     <div class="reveal">
-      <span class="sec-tag">// ACHIEVEMENTS UNLOCKED</span>
+      <span class="sec-tag">Credentials</span>
       <h2 class="sec-title">Certificates &amp; Achievements</h2>
 
       <div class="cert-grid">
+
+        <!-- Hackathon win -->
+        <div class="cert-card" onclick="openCert('hackathon', event)">
+          <div class="cert-thumb">
+            <span class="cert-thumb-placeholder">🏆</span>
+            <div class="cert-thumb-overlay">View</div>
+          </div>
+          <div class="cert-body">
+            <span class="cert-type-badge">Achievement · 1st Place</span>
+            <div class="cert-name">UoM AutoForge Smart Mobility Hackathon</div>
+            <div class="cert-issuer">University of Mauritius</div>
+            <div class="cert-date">2025 / 2026</div>
+            <span class="cert-hint">View details →</span>
+          </div>
+        </div>
 
         <!-- ① BSc Enrolment -->
         <div class="cert-card" onclick="openCert('bsc', event)">
           <div class="cert-thumb">
             <span class="cert-thumb-placeholder">🎓</span>
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
             <span class="cert-type-badge">University</span>
             <div class="cert-name">BSc (Hons) Computer Science</div>
             <div class="cert-issuer">University of Mauritius</div>
-            <div class="cert-date">2024 — Present</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <div class="cert-date">2025 — Present</div>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
@@ -324,28 +428,28 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
         <div class="cert-card" onclick="openCert('hsc', event)">
           <div class="cert-thumb">
             <img src="images/A-Level.jpg" alt="HSC Certificate">
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
             <span class="cert-type-badge">Certificate</span>
             <div class="cert-name">HSC Certificate</div>
             <div class="cert-issuer">Cambridge International Education</div>
             <div class="cert-date">November 2024</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
         <div class="cert-card" onclick="openCert('sc', event)">
           <div class="cert-thumb">
             <img src="images/O-level.jpg" alt="SC Certificate">
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
             <span class="cert-type-badge">Certificate</span>
             <div class="cert-name">SC Certificate</div>
             <div class="cert-issuer">Cambridge O-level</div>
             <div class="cert-date">June 2022</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
@@ -353,14 +457,14 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
         <div class="cert-card" onclick="openCert('top500', event)">
           <div class="cert-thumb">
             <img src="images/Top500.jpg" alt="Top 500 Ranking">
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
             <span class="cert-type-badge">Achievement</span>
             <div class="cert-name">Top 500 Ranking</div>
             <div class="cert-issuer">Mauritius Examination Syndicate</div>
             <div class="cert-date">2024</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
@@ -368,35 +472,54 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
         <div class="cert-card" onclick="openCert('eportfolio', event)">
           <div class="cert-thumb">
             <span class="cert-thumb-placeholder">🌐</span>
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
             <span class="cert-type-badge">Project</span>
-            <div class="cert-name">E-Portfolio Built &amp; Deployed</div>
-            <div class="cert-issuer">GitHub Pages</div>
+            <div class="cert-name">This E-Portfolio</div>
+            <div class="cert-issuer">Personal Project · HTML, CSS, JS</div>
             <div class="cert-date">2026</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
-        <!-- ⑥ Spare slot — duplicate and fill in for extra certs -->
-      <!-- <div class="cert-card" onclick="openCert('extra', event)">
+        <!-- AI certifications -->
+        <div class="cert-card" onclick="openCert('aicerts', event)">
           <div class="cert-thumb">
-            <span class="cert-thumb-placeholder">📋</span>
-            <div class="cert-thumb-overlay">[ VIEW ]</div>
+            <span class="cert-thumb-placeholder">🧠</span>
+            <div class="cert-thumb-overlay">View</div>
           </div>
           <div class="cert-body">
-            <span class="cert-type-badge">[ Type ]</span>
-            <div class="cert-name">[ Add Certificate Name ]</div>
-            <div class="cert-issuer">[ Issuing Organisation ]</div>
-            <div class="cert-date">[ Year ]</div>
-            <span class="cert-hint">[ CLICK TO EXPAND ]</span>
+            <span class="cert-type-badge">Certificates</span>
+            <div class="cert-name">AI Fundamentals &amp; Modern AI</div>
+            <div class="cert-issuer">IBM SkillsBuild · Cisco</div>
+            <div class="cert-date">2026</div>
+            <span class="cert-hint">View details →</span>
           </div>
         </div>
 
+        <!-- To add another certificate, duplicate a .cert-card block above and add a matching entry to certData. -->
+
+      </div><!-- end .cert-grid -->
+    </div><!-- end .reveal -->
+
+    <!-- Leadership & Extracurricular -->
+    <div class="reveal" style="margin-top:1rem;">
+      <span class="sec-tag">Beyond the classroom</span>
+      <h2 class="sec-title">Leadership &amp; Extracurricular</h2>
+      <div class="lead-list">
+        <div class="lead-item">
+          <span class="lead-org">Royal College of Port Louis</span>
+          <h4>Prefect</h4>
+          <p>Elected by peers and faculty. Coordinated school events and supported student welfare initiatives.</p>
+        </div>
+        <div class="lead-item">
+          <span class="lead-org">Speech &amp; Debate Club</span>
+          <h4>Member — Competitive Debating</h4>
+          <p>Built structured argumentation, public speaking, and active-listening skills through regular competitions.</p>
+        </div>
       </div>
-    </div> 
-    --> 
+    </div>
 
   </div><!-- end .content -->
 
@@ -440,8 +563,8 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 </main>
 
 <footer>
-  <p>© 2026 MAKHUN Lokeshav Anand — <a href="https://www.linkedin.com/in/lokeshav-anand-makhun-7884383b8/" style="color:var(--neon-cyan); text-decoration: underline;" target="_blank">LinkedIn</a> — <a href="https://github.com/lokeshavmakhun" style="color:var(--neon-cyan); text-decoration: underline;" target="_blank">GitHub</a></p>
-  <p>// SKILL TREE UPDATED //</p>
+  <p>© 2026 MAKHUN Lokeshav Anand — <a href="mailto:mlokeshav20@gmail.com" style="color:var(--neon-cyan);text-decoration:underline;">Email</a> — <a href="https://www.linkedin.com/in/yashmakhun/" style="color:var(--neon-cyan);text-decoration:underline;" target="_blank" rel="noopener">LinkedIn</a> — <a href="https://github.com/lokeshavmakhun" style="color:var(--neon-cyan);text-decoration:underline;" target="_blank" rel="noopener">GitHub</a></p>
+  <p>BSc (Hons) Computer Science · University of Mauritius</p>
 </footer>
 
 <script src="shared.js"></script>
@@ -451,16 +574,48 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 // ════════════════════════════════════════════
 const certData = {
 
+  hackathon: {
+    icon: '🏆',
+    title: 'UoM AutoForge Smart Mobility Hackathon — 1st Place',
+    issuer: 'University of Mauritius',
+    date: '2025 / 2026',
+    desc: [
+      'Won first place in the Smart Mobility hackathon at the University of Mauritius, competing against other student teams.',
+      'My team built TransitPulse-AI, a full-stack AI-powered public transit app for Mauritius with real-time routing and a "mobility copilot" — a chat assistant grounded in factual transit data so its answers stay accurate. It uses a FastAPI backend, a React Native app, a locally-run Gemma 4.0 language model, and Docker for containerisation, with the interface designed in Figma.',
+      'This was my first hackathon and my first time shipping a working product end-to-end under time pressure. It pushed my backend, mobile, and AI-integration skills much further than coursework had, and taught me how to scope ruthlessly and divide work in a small team.'
+    ],
+    tags: ['Hackathon Winner', 'FastAPI', 'React Native', 'LLM Integration', 'Docker', 'Team Project'],
+    image: null,
+    file: null
+  },
+
+  aicerts: {
+    icon: '🧠',
+    title: 'AI Fundamentals & Modern AI',
+    issuer: 'IBM SkillsBuild · Cisco',
+    date: '2026',
+    desc: [
+      'A set of short online certifications completed alongside my degree to build a foundation in applied AI:',
+      '• Artificial Intelligence Fundamentals — IBM SkillsBuild',
+      '• Find Insights with AI — Cisco',
+      '• Introduction to Modern AI — Cisco',
+      'Together these covered how modern machine-learning and large-language-model systems work, how to reason about their outputs, and how to apply them responsibly — knowledge I put directly into practice building the grounded copilot in TransitPulse-AI.'
+    ],
+    tags: ['IBM SkillsBuild', 'Cisco', 'Artificial Intelligence', 'Machine Learning', 'Prompt Engineering'],
+    image: null,
+    file: null
+  },
+
   bsc: {
     icon: '🎓',
     title: 'BSc (Hons) Computer Science',
     issuer: 'University of Mauritius',
-    date: '2024 — Present',
+    date: '2025 — Present',
     desc: [
-      'Currently enrolled in Year 1 of the BSc (Hons) Computer Science programme at the University of Mauritius. Committed to a 3-year academic journey.',
-      'As of now, I am mostly emjoying programming and database. However Communicatio & Business Skills is a module that taught me a lot about confidence, team work and communication which are all very important skills to have in the workplace. I am looking forward to learning more about computer science and developing my skills further as I progress through the course.'
+      'Enrolled in the BSc (Hons) Computer Science programme at the University of Mauritius — a three-year full-time degree. I completed Year 1 (May/June 2026 examinations) with a 4.00 GPA and an 85.5% cumulative average, scoring A+ in five of six modules.',
+      'So far, programming and databases are the areas I have enjoyed most. Communication and Business Skills for IT was the module that surprised me: it taught me a lot about confidence, teamwork, and communicating technical ideas clearly — skills that matter as much in the workplace as any language or framework. I am looking forward to going deeper in Year 2.'
     ],
-    tags: ['Computer Science', 'Year 1', 'University of Mauritius', 'Full Time'],
+    tags: ['Computer Science', 'GPA 4.00', 'University of Mauritius', 'Full Time'],
     // Set to your certificate image path, or null for no image
     image: 'images/UOM.png',
     // Set to a PDF path or URL, or null
@@ -474,7 +629,7 @@ const certData = {
     date: 'November 2024',
     desc: [
       'Successfully completed the Higher School Certificate (HSC) examinations in November 2024, earning the HSC Certificate with strong performance across all subjects. This certificate represents the culmination of my secondary education and reflects my dedication and hard work during those years.',
-      'I obtained A* in my main subject which were Computer Science, Mathematics and Physics. Surprisingly, I got an A in French which was not a subject I particularly enjoyed but I am glad I put in the effort to do well in it as it has given me a useful skill and broadened my horizons.However, I did not perfrom well in General Paper, getting only a B. Overall, earning the HSC Certificate was a significant milestone that has opened up new opportunities for my academic and professional journey.',
+      'I obtained A* in my main subjects, which were Computer Science, Mathematics and Physics. Surprisingly, I got an A in French which was not a subject I particularly enjoyed but I am glad I put in the effort to do well in it as it has given me a useful skill and broadened my horizons. However, I did not perform well in General Paper, getting only a B. Overall, earning the HSC Certificate was a significant milestone that has opened up new opportunities for my academic and professional journey.',
       'Even though I wanted to try again for a better grade in General Paper, I decided to just move on and focus on my university studies instead. I am proud of my achievements and I am excited to continue learning and growing in the field of computer science at university. My motto is to always keep pushing forward, no matter what is ahead.'
     ],
     tags: ['HSC', 'Royal College Port-Louis'],
@@ -489,9 +644,9 @@ const certData = {
     date: 'June 2022',
     desc: [
       'Completed the Cambridge O-level examinations with strong performance in all subjects. I took a range of subjects including Computer Science, Mathematics, Physics, Chemistry, Accounting, Additional Mathematics, French and English Language. I had obtained A* in all of my subjects except an A in English Language, which was a proud achievement and a testament to my dedication and hard work during my secondary education.',
-      'Fun Fact: I had actually registered to learn biology instead of accounting, but I got frustrated as our class did not have a dedicated biology teacher. So, I decided to swtich to accounting as it felt more manageable to study which was the case. In the end, I am glad I made that decision as I ended up loving accounting and it has been a useful skill to have, especially when it comes to managing finances and understanding the financial aspects of running projects.'
+      'Fun Fact: I had actually registered to learn biology instead of accounting, but I got frustrated as our class did not have a dedicated biology teacher. So, I decided to switch to accounting as it felt more manageable to study which was the case. In the end, I am glad I made that decision as I ended up loving accounting and it has been a useful skill to have, especially when it comes to managing finances and understanding the financial aspects of running projects.'
     ],
-    tags: ['Cambridge O-level', 'Royal College Port-Louis'],
+    tags: ['Cambridge O-level', '7 A*', 'Royal College Port-Louis'],
     image: 'images/O-level.jpg',
     file: { path: 'images/O-level.jpg', label: 'View O-level Certificate', type: 'IMAGE' }
   },
@@ -512,17 +667,15 @@ const certData = {
 
   eportfolio: {
     icon: '🌐',
-    title: 'E-Portfolio Built & Deployed',
-    issuer: 'GitHub Pages',
+    title: 'This E-Portfolio',
+    issuer: 'Personal Project',
     date: '2026',
     desc: [
-      'Designed and built a fully interactive multi-page E-Portfolio from scratch using HTML, CSS, and JavaScript — no frameworks or templates. Features include a custom animated cursor, particle effects, skill modals, project cards, and scroll-reveal animations.',
-      'Deployed live on GitHub Pages as a publicly accessible professional portfolio demonstrating technical skill, design thinking, and personal branding.'
+      'Designed and built this multi-page e-portfolio from scratch in HTML, CSS, and JavaScript — no frameworks or templates. It includes a particle background, modal breakdowns for every project, expandable panels, and scroll-reveal animations, all version-controlled with Git.',
+      'The project was the clearest test of my self-directed learning this year: I taught myself enough front-end development to take it from an empty file to a finished, coherent site.'
     ],
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages', 'UI Design', 'Personal Branding'],
+    tags: ['HTML', 'CSS', 'JavaScript', 'Git', 'UI Design', 'Self-Directed Learning'],
     image: null,
-    // Swap in your live URL:
-    // file: { path: 'https://yourusername.github.io', label: 'View Live Site', type: 'LINK' }
     file: null
   },
 

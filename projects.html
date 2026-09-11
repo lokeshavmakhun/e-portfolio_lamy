@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAMY | Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--neon-cyan:#22d3ee;--neon-purple:#a78bfa;--neon-green:#34d399;--neon-orange:#fbbf24;--dark-bg:#0b0e14;--dark-card:#141922;--text-primary:#e7eaf0;--text-secondary:#98a2b3;--border:rgba(255,255,255,0.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dark-bg);color:var(--text-primary);font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.022) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(11,14,20,0.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Orbitron',monospace;font-size:.92rem;font-weight:700;color:var(--neon-cyan);text-decoration:none;letter-spacing:1.5px}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;text-transform:uppercase;padding:0 1.1rem;height:64px;display:flex;align-items:center;border-right:1px solid rgba(34,211,238,0.06);transition:color .2s,background .2s;position:relative}
+.nav-links a:first-child{border-left:1px solid rgba(34,211,238,0.06)}
+.nav-links a:hover,.nav-links a.active{color:var(--neon-cyan);background:rgba(34,211,238,0.04)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--neon-cyan)}
+canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+#loader{position:fixed;inset:0;background:var(--dark-bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s}
+#loader.hidden{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Orbitron',monospace;font-size:1.9rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px}
+.loader-text{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--neon-cyan);letter-spacing:4px}
+.loader-bar-wrap{width:280px;height:2px;background:rgba(34,211,238,0.1)}
+.loader-bar{height:100%;background:var(--neon-cyan);animation:load .6s ease-in-out forwards;width:0%}
+main{position:relative;z-index:2;padding-top:64px}
+.page-hero{padding:4rem 6% 2rem;border-bottom:1px solid rgba(34,211,238,0.08)}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--neon-purple);letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:.6rem;opacity:0;animation:fadeUp .5s .2s forwards}
+.page-title{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:var(--text-primary);opacity:0;animation:fadeUp .5s .4s forwards;line-height:1.12}
+.page-title span{color:var(--neon-purple)}
+.page-sub{font-size:1rem;color:var(--text-secondary);margin-top:1rem;max-width:640px;opacity:0;animation:fadeUp .5s .6s forwards}
+.content{padding:3rem 6%;max-width:1200px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Section labels ── */
+.section-label{font-family:'Orbitron',monospace;font-size:1.15rem;font-weight:800;color:var(--text-primary);letter-spacing:1px;margin:3rem 0 1.4rem;padding-bottom:.55rem;border-bottom:1px solid var(--border);display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem .9rem}
+.section-label:first-of-type{margin-top:.5rem}
+.section-label > span:first-child{white-space:nowrap}
+.section-label .sl-note{font-family:'Share Tech Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary)}
+
+/* ── Project cards ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;margin-bottom:1rem}
+.project-card{background:var(--dark-card);border:1px solid rgba(167,139,250,0.12);padding:2rem;position:relative;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));transition:border-color .3s,box-shadow .3s,transform .3s;cursor:pointer;user-select:none}
+.project-card::before{content:'';position:absolute;top:0;right:20px;width:0;height:0;border-style:solid;border-width:0 20px 20px 0;border-color:transparent rgba(167,139,250,.2) transparent transparent;transition:border-color .3s}
+.project-card:hover{border-color:rgba(167,139,250,.5);box-shadow:0 0 30px rgba(167,139,250,.1);transform:translateY(-5px)}
+.project-card:hover::before{border-color:transparent var(--neon-purple) transparent transparent}
+.project-card.active{border-color:var(--neon-purple);box-shadow:0 0 30px rgba(167,139,250,.18)}
+/* Featured card */
+.project-card.featured{grid-column:1/-1;border-color:rgba(167,139,250,.25)}
+.featured-badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.3rem .8rem;border:1px solid var(--neon-purple);color:var(--neon-purple);background:rgba(167,139,250,.08);margin-bottom:1rem;letter-spacing:2px}
+.project-number{font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:rgba(167,139,250,.08);position:absolute;top:1rem;right:1.5rem;line-height:1}
+.project-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.project-sem-tag{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--neon-purple);letter-spacing:2px;margin-bottom:.5rem;text-transform:uppercase}
+.project-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:.75rem;letter-spacing:1px}
+.project-summary{font-size:.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.ptag{font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.25rem .65rem;border:1px solid rgba(167,139,250,.2);color:var(--neon-purple);background:rgba(167,139,250,.04)}
+.project-hint{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(167,139,250,.35);letter-spacing:2px;display:block;margin-top:.5rem;transition:color .2s}
+.project-card:hover .project-hint{color:rgba(167,139,250,.7)}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#07071a;border:1px solid rgba(167,139,250,.25);border-top:2px solid var(--neon-purple);width:100%;max-width:900px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-overlay.open .modal-box{animation:modalIn .35s ease forwards}
+@keyframes modalIn{from{transform:translateY(28px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.modal-header{padding:2rem 2rem 1.2rem;border-bottom:1px solid rgba(167,139,250,.08);display:flex;align-items:center;gap:1.2rem}
+.modal-header-icon{font-size:2.4rem;flex-shrink:0}
+.modal-title{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;color:var(--neon-purple);letter-spacing:2px;display:block;margin-bottom:.2rem}
+.modal-sem{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--text-secondary);letter-spacing:2px}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid rgba(167,139,250,.25);color:var(--neon-purple);font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:.35rem .85rem;cursor:pointer;letter-spacing:2px;transition:background .2s}
+.modal-close:hover{background:rgba(167,139,250,.08)}
+.modal-body{padding:1.8rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:650px){.modal-body{grid-template-columns:1fr}}
+.modal-desc p{color:var(--text-secondary);font-size:.92rem;line-height:1.85;margin-bottom:.9rem}
+.modal-desc p:last-of-type{margin-bottom:0}
+.modal-learned{margin-top:1.2rem;padding:1rem 1.2rem;border-left:2px solid var(--neon-purple);background:rgba(167,139,250,.03)}
+.modal-learned-label{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(167,139,250,.5);letter-spacing:2px;margin-bottom:.4rem}
+.modal-learned p{font-size:.88rem;color:var(--text-secondary)}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.modal-tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.25rem .65rem;border:1px solid rgba(167,139,250,.2);color:var(--neon-purple);background:rgba(167,139,250,.04)}
+.modal-media{display:flex;flex-direction:column;gap:.85rem}
+.media-img-grid{display:grid;grid-template-columns:1fr;gap:.65rem}
+.media-slot{width:100%;aspect-ratio:4/3;border:1px solid rgba(167,139,250,.12);background:rgba(167,139,250,.02);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(167,139,250,.2);text-align:center;padding:.5rem;overflow:hidden}
+.media-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.media-video-wrap{position:relative;padding-top:56.25%}
+.media-video-wrap video{position:absolute;top:0;left:0;width:100%;height:100%}
+.media-doc-link{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.1rem;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.04);text-decoration:none;transition:background .2s,border-color .2s}
+.media-doc-link:hover{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.45)}
+.media-doc-icon{font-size:1.3rem;flex-shrink:0}
+.media-doc-text{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--neon-purple);letter-spacing:1px}
+.media-doc-sub{font-size:.7rem;color:var(--text-secondary);margin-top:.15rem}
+.media-placeholder{width:100%;padding:2rem 1rem;border:1px dashed rgba(167,139,250,.12);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(167,139,250,.18);text-align:center;letter-spacing:1px}
+.page-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 6%;border-top:1px solid rgba(34,211,238,.06);position:relative;z-index:2}
+.page-nav-link{font-family:'Orbitron',monospace;font-size:.72rem;color:var(--text-secondary);text-decoration:none;letter-spacing:2px;transition:color .2s}
+.page-nav-link:hover{color:var(--neon-cyan)}
+footer{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 3.5rem;border-top:1px solid rgba(34,211,238,0.08)}
+footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--text-secondary);letter-spacing:2px;margin-top:.4rem}
+.menu-btn{display:none;background:transparent;border:1px solid rgba(34,211,238,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .8rem;cursor:pointer;letter-spacing:2px}
+@media(max-width:768px){.nav-links{display:none}.menu-btn{display:block}.content{padding:2rem 1rem}.page-hero{padding:2.5rem 1rem 1.5rem}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes load{to{width:100%}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo">LAMY</div><div class="loader-text">LOADING</div><div class="loader-bar-wrap"><div class="loader-bar"></div></div></div>
+<canvas id="particles"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">LAMY://PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="achievements.html">Skills</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="reflection.html">Reflection</a></li>
+  </ul>
+  <button class="menu-btn" onclick="toggleNav()">[ MENU ]</button>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <span class="page-tag">Projects</span>
+    <h1 class="page-title">Projects &amp; <span>Coursework</span></h1>
+    <p class="page-sub">Everything I built in Year 1 — the hackathon-winning app, plus every project across both semesters. Click any card for a full breakdown: what it was, what I did, what I learned, and the documents behind it.</p>
+  </div>
+
+  <div class="content">
+
+    <h2 class="section-label"><span>Highlight</span> <span class="sl-note">Extracurricular project</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured reveal" onclick="openProject('transitpulse', event)">
+        <span class="project-number" style="font-size:4rem;opacity:.06">AI</span>
+        <span class="featured-badge">Hackathon Winner — 1st Place</span>
+        <span class="project-icon">🚌</span>
+        <div class="project-sem-tag">Year 1 · Extracurricular · UoM AutoForge Hackathon</div>
+        <div class="project-title">TransitPulse-AI</div>
+        <p class="project-summary">A full-stack AI-powered public transit app for Mauritius — real-time routing plus a "mobility copilot" grounded in factual data. Built with FastAPI, React Native, a locally-run Gemma 4.0 model and Docker. Won first place against competing student teams.</p>
+        <div class="project-tags">
+          <span class="ptag">FastAPI</span>
+          <span class="ptag">React Native</span>
+          <span class="ptag">Gemma 4.0 (local LLM)</span>
+          <span class="ptag">Docker</span>
+          <span class="ptag">Figma</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+    </div>
+
+    <h2 class="section-label"><span>Semester 1</span> <span class="sl-note">CBS · Computational Maths · COA · Software Engineering</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal" onclick="openProject('online_presentation', event)">
+        <span class="project-number">01</span>
+        <span class="project-icon">🎦</span>
+        <div class="project-sem-tag">Semester 1 · Project 01</div>
+        <div class="project-title">Online Presentation</div>
+        <p class="project-summary">Our first CBS assignment — a collaborative online presentation on a random topic.</p>
+        <div class="project-tags">
+          <span class="ptag">Communication &amp; Business Skills</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('teambuilding', event)">
+        <span class="project-number">02</span>
+        <span class="project-icon">📸</span>
+        <div class="project-sem-tag">Semester 1 · Project 02</div>
+        <div class="project-title">Reverse Caption Photo Scavenger Hunt</div>
+        <p class="project-summary">A group activity where we take pictures based on different creative captions.</p>
+        <div class="project-tags">
+          <span class="ptag">Communication &amp; Business Skills</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('businessplan', event)">
+        <span class="project-number">03</span>
+        <span class="project-icon">💼</span>
+        <div class="project-sem-tag">Semester 1 · Project 03</div>
+        <div class="project-title">Business Plan</div>
+        <p class="project-summary">Developed a full business plan for a restaurant covering market research, strategy, financial projections, and a class presentation.</p>
+        <div class="project-tags">
+          <span class="ptag">Communication &amp; Business Skills</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('matrix', event)">
+        <span class="project-number">04</span>
+        <span class="project-icon">📋</span>
+        <div class="project-sem-tag">Semester 1 · Project 04</div>
+        <div class="project-title">Matrix Assignment</div>
+        <p class="project-summary">An Excel project showcasing matrix operations and their applications, automated with Macros.</p>
+        <div class="project-tags">
+          <span class="ptag">Computational Mathematics</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('circuit', event)">
+        <span class="project-number">05</span>
+        <span class="project-icon">⚡</span>
+        <div class="project-sem-tag">Semester 1 · Project 05</div>
+        <div class="project-title">Circuit Simulation Assignment</div>
+        <p class="project-summary">Modelling and analysing digital logic circuits in Logisim with a group.</p>
+        <div class="project-tags">
+          <span class="ptag">Computer Organisation &amp; Architecture</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('blood', event)">
+        <span class="project-number">06</span>
+        <span class="project-icon">🩸</span>
+        <div class="project-sem-tag">Semester 1 · Project 06</div>
+        <div class="project-title">Blood Donation Management System</div>
+        <p class="project-summary">A Software Requirements Specification (SRS) report for a system that tracks blood donations.</p>
+        <div class="project-tags">
+          <span class="ptag">Software Engineering Principles</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+    </div>
+
+    <h2 class="section-label"><span>Semester 2</span> <span class="sl-note">CBS · Computational Maths · COA · Database Systems</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal" onclick="openProject('interview', event)">
+        <span class="project-number">01</span>
+        <span class="project-icon">🎭</span>
+        <div class="project-sem-tag">Semester 2 · Project 01</div>
+        <div class="project-title">Interview Role Play</div>
+        <p class="project-summary">A simulated formal job interview where I took the role of interviewer with a new team — requiring leadership, preparation, and professional communication.</p>
+        <div class="project-tags">
+          <span class="ptag">Communication &amp; Business Skills</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('research', event)">
+        <span class="project-number">02</span>
+        <span class="project-icon">📄</span>
+        <div class="project-sem-tag">Semester 2 · Project 02</div>
+        <div class="project-title">Academic Writing</div>
+        <p class="project-summary">A formal group research report on unemployment in the IT sector — a topic we chose because it directly affects us as future graduates.</p>
+        <div class="project-tags">
+          <span class="ptag">Communication &amp; Business Skills</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('montecarlo', event)">
+        <span class="project-number">03</span>
+        <span class="project-icon">🎲</span>
+        <div class="project-sem-tag">Semester 2 · Project 03</div>
+        <div class="project-title">Monte Carlo Simulation — Python</div>
+        <p class="project-summary">An individual Python coursework simulating a supermarket queue with two cashiers using Monte Carlo methods, including probability analysis and a full report.</p>
+        <div class="project-tags">
+          <span class="ptag">Computational Mathematics</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('marie', event)">
+        <span class="project-number">04</span>
+        <span class="project-icon">🔢</span>
+        <div class="project-sem-tag">Semester 2 · Project 04</div>
+        <div class="project-title">Cramer's Rule — MARIE Assembly</div>
+        <p class="project-summary">Implementing Cramer's Rule in MARIE assembly language — with no multiply or divide instructions, forcing us to build every operation from scratch. Awarded 10/10.</p>
+        <div class="project-tags">
+          <span class="ptag">Computer Organisation &amp; Architecture</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card reveal" onclick="openProject('database', event)">
+        <span class="project-number">05</span>
+        <span class="project-icon">🚗</span>
+        <div class="project-sem-tag">Semester 2 · Project 05</div>
+        <div class="project-title">Car Rental Database System</div>
+        <p class="project-summary">Designed and implemented a relational database system for a car rental company, including an ER diagram, SQL code, a full report, and a smooth class presentation.</p>
+        <div class="project-tags">
+          <span class="ptag">Database Systems</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+      <div class="project-card featured reveal" onclick="openProject('eportfolio', event)">
+        <span class="project-number" style="font-size:4rem;opacity:.06">06</span>
+        <span class="featured-badge">Featured Project</span>
+        <span class="project-icon">🌐</span>
+        <div class="project-sem-tag">Semester 2 · Project 06</div>
+        <div class="project-title">E-Portfolio — This Website</div>
+        <p class="project-summary">Built from scratch with HTML, CSS and JavaScript instead of a site builder — because I wanted something that actually felt like mine. Version-controlled with Git.</p>
+        <div class="project-tags">
+          <span class="ptag">HTML</span>
+          <span class="ptag">CSS</span>
+          <span class="ptag">JavaScript</span>
+          <span class="ptag">Git</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Modal ── -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeProject()">[ CLOSE ✕ ]</button>
+      <div class="modal-header">
+        <span class="modal-header-icon" id="mIcon"></span>
+        <div>
+          <span class="modal-title" id="mTitle"></span>
+          <span class="modal-sem" id="mSem"></span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-desc" id="mDesc"></div>
+        <div class="modal-media" id="mMedia"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="page-nav">
+  <a href="about.html" class="page-nav-link">← About Me</a>
+  <a href="reflection.html" class="page-nav-link">Reflection →</a>
+</div>
+
+<footer>
+  <p>© 2026 MAKHUN Lokeshav Anand — <a href="mailto:mlokeshav20@gmail.com" style="color:var(--neon-cyan);text-decoration:underline;">Email</a> — <a href="https://www.linkedin.com/in/yashmakhun/" style="color:var(--neon-cyan);text-decoration:underline;" target="_blank" rel="noopener">LinkedIn</a> — <a href="https://github.com/lokeshavmakhun" style="color:var(--neon-cyan);text-decoration:underline;" target="_blank" rel="noopener">GitHub</a></p>
+  <p>BSc (Hons) Computer Science · University of Mauritius</p>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// ─────────────────────────────────────────────
+//  PROJECT DATA
+// ─────────────────────────────────────────────
+const projects = {
+
+  transitpulse: {
+    icon: '🚌',
+    title: 'TransitPulse-AI — Hackathon Winner',
+    sem: 'Year 1 · Extracurricular · UoM AutoForge Smart Mobility Hackathon (1st Place)',
+    desc: [
+      'TransitPulse-AI is an AI-powered public transit app for Mauritius, built with my team for the University of Mauritius AutoForge "Smart Mobility" hackathon — which we won against other student teams.',
+      'The app gives real-time routing across the bus network and pairs it with a "mobility copilot": a chat assistant that answers questions about journeys and services. The key engineering challenge was keeping the assistant accurate — I integrated a locally-run Gemma 4.0 language model and used prompt engineering with factual grounding so its answers come from real transit data rather than being invented.',
+      'On the technical side I worked across the whole stack: designing the interface in Figma, building the FastAPI backend and the React Native mobile frontend, and containerising the services with Docker so the whole system runs reproducibly.',
+      'It was my first hackathon and the first time I shipped a working product end to end under real time pressure. It stretched my backend, mobile and AI-integration skills well beyond coursework, and taught me how to scope aggressively and split work in a small team.'
+    ],
+    learned: 'This project turned "I have used Python" into "I have built and shipped a full-stack AI application." I learned how to integrate an LLM responsibly with grounding instead of trusting raw output, how the pieces of a modern app (API, mobile client, container) fit together, and how much a team can build in a weekend when the scope is disciplined.',
+    tags: ['FastAPI', 'React Native', 'Gemma 4.0 (local LLM)', 'Prompt Engineering', 'Docker', 'Figma', 'Full-Stack', 'Team Project', 'Hackathon Winner'],
+    images: null,
+    video: null,
+    doc: null
+  },
+
+  online_presentation: {
+    icon: '🎦',
+    title: 'Online Presentation — AI',
+    sem: 'Semester 1 · Project 01 · Communication & Business Skills for IT',
+    desc: [
+      'Our first CBS assignment brought us together as a team of four to research and present an idea to our peers in an online format. Since all of us were already interested in technology, we chose Artificial Intelligence as our topic — a subject we felt genuinely connected to.',
+      'What sounds straightforward on paper was anything but. Deciding on a team leader sparked our first real conflict, and choosing a template for the slides led to more heated debate than expected. We also had to agree on who would cover which section, how to structure the narrative, and how to maintain a consistent visual style across contributors.',
+      'Fortunately, we were a team that resolved conflicts constructively. Every disagreement was worked through with discussion rather than stubbornness, and the final presentation reflected that. It was a great reminder that a good outcome usually comes from people who communicate well — not from people who simply agree on everything.',
+      'This was the start of our team for the year — the Deepseekers.'
+    ],
+    learned: 'This was my first real experience of managing group conflict in an academic setting. I learned that disagreement is normal and even healthy — the key is creating space for everyone to be heard before making decisions. I also grew more comfortable coordinating group tasks remotely.',
+    tags: ['Teamwork', 'Conflict Resolution', 'Presentation', 'AI Topic', 'Group Work'],
+    images: [],
+    video: null,
+    doc: {path:'docs/CBS Project 5min (1)-2.pdf', label:'View AI Online Presentation pdf', type:'PDF'}
+  },
+
+  teambuilding: {
+    icon: '📸',
+    title: 'Reverse Caption Photo Scavenger Hunt',
+    sem: 'Semester 1 · Project 02 · Communication & Business Skills for IT',
+    desc: [
+      'Continuing with the same team from our first assignment, the Scavenger Hunt turned out to be more demanding than any of us had anticipated. Beyond simply finding things, we had to produce a polished PowerPoint and a full written report — which raised the stakes considerably.',
+      'Working under time pressure with a team that had strong opinions on every creative choice tested our patience. There were heated discussions about which photos to use, how to write captions, and how to divide the report. At one point, it genuinely felt like the team dynamic might crack under the pressure.',
+      'But it didn\'t. We pulled through and delivered a project we were all proud of. The experience sharpened my ability to stay calm during disagreements, compromise without feeling like I was giving in, and keep the focus on the outcome rather than being right.'
+    ],
+    learned: 'I improved significantly in team collaboration under pressure. This assignment taught me that the quality of the final product is directly tied to how well the team communicates — especially when emotions run high. I also became more comfortable contributing ideas in a group setting without waiting to be asked.',
+    tags: ['Teamwork', 'Creative Thinking', 'Report Writing', 'PowerPoint', 'Communication', 'Group Work'],
+    images: ['images/S1.png','images/S2.JPG','images/S4.JPG','images/S5.JPG', 'images/ScavengerReport.png'],
+    video: null,
+    doc: {path: 'docs/Scavenger Hunt Part B Deepseekers.pdf', label:'View Powerpoint + Scavenger Hunt Report pdf', type:'PDF'}
+  },
+
+  businessplan: {
+    icon: '💼',
+    title: 'Business Plan — Fusion Resto',
+    sem: 'Semester 1 · Project 03 · Communication & Business Skills for IT',
+    desc: [
+      'This assignment came with a larger team and, with it, a new set of challenges. With more people involved, I quickly realised that good work allocation wasn\'t just helpful — it was essential. Without it, tasks overlapped, progress stalled, and deadlines crept up faster than expected.',
+      'Our business idea was a restaurant called Fusion Resto, a concept built around blending different culinary traditions into a cohesive dining experience. The plan covered market research, financial projections, an operational strategy, and a presentation to the class.',
+      'Personally, I struggled with time management on this one. There were meetings I couldn\'t attend, and I left some of my contributions until too close to the deadline. But despite these individual stumbles, the team managed to pull together and deliver a genuinely strong business idea that we all felt represented our collective effort.'
+    ],
+    learned: 'This project was an honest lesson in time management and accountability. I recognised that leaving work to pile up creates stress not just for me but for my teammates. Going forward, I became more intentional about starting earlier and communicating proactively when I couldn\'t make a meeting. I also developed a better understanding of how to structure a formal business document.',
+    tags: ['Business Strategy', 'Market Research', 'Financial Planning', 'Presentation', 'Team Coordination', 'Time Management'],
+    images: ['images/F3.png', 'images/F2.png','images/F1.png','images/FusionResto.png'],
+    video: 'images/FusionResto.mp4',
+    doc: {path:"docs/FusionResto.pdf", label:'View Fusion Resto Business Plan pdf', type:'PDF'}
+  },
+
+  matrix: {
+    icon: '📋',
+    title: 'Matrix Operations — Excel',
+    sem: 'Semester 1 · Project 04 · Computational Mathematics',
+    desc: [
+      'This individual assignment asked me to simulate a range of complex matrix operations entirely within Microsoft Excel — a tool I had barely scratched the surface of before this project. The scope included not just basic operations but also automated functions using Excel Macros, which added a significant layer of technical complexity.',
+      'Going in, I underestimated how much there was to learn. Matrix operations in Excel are not intuitive, and writing Macros felt like entering an entirely different programming environment. There were moments of genuine frustration as formulas refused to behave and macros broke in unexpected ways.',
+      'But the assignment forced me to be methodical and self-sufficient. I spent hours reading documentation, watching tutorials, and debugging formulas until everything worked. The moment I successfully demonstrated all my matrix operations — especially the row operations — was one of the more satisfying moments of the semester.'
+    ],
+    learned: 'This was a masterclass in self-directed learning. Nobody could do this for me, so I had to become comfortable sitting with confusion and working through it step by step. I developed a much stronger foundation in Excel and gained practical experience with automation via Macros — skills that are directly applicable in data-heavy professional environments.',
+    tags: ['Microsoft Excel', 'Macros', 'Matrix Operations', 'Self-Directed Learning', 'Individual Work', 'Computational Maths'],
+    images: ['images/M1.png', 'images/M2.png', 'images/M3.png', 'images/M4.png', 'images/M5.png'],
+    video: null,
+    doc: null
+  },
+
+  circuit: {
+    icon: '⚡',
+    title: 'Circuit Simulation — Logisim',
+    sem: 'Semester 1 · Project 05 · Computer Organisation & Architecture',
+    desc: [
+      'This group assignment was a breath of fresh air after some of the more stressful projects of the semester. Working with my teammates, we had to build and simulate a series of circuits using logic gates in a software tool called Logisim.',
+      'The task felt like solving puzzles — each circuit had a correct configuration, and finding it required logical thinking and a good understanding of how gates like AND, OR, NOT, and XOR interact. Rather than feeling like work, it felt like a challenge we were all genuinely excited to take on together.',
+      'The collaborative atmosphere was light and energetic. When one of us got stuck, another would spot the issue quickly. We built on each other\'s thinking rather than working in silos, and it made the whole experience more enjoyable and efficient.'
+    ],
+    learned: 'I gained a solid practical understanding of digital logic and how basic circuits function at the hardware level — knowledge that directly supports my understanding of computer architecture. This assignment also reminded me that teamwork doesn\'t always have to be tense; when a group is aligned and the task is engaging, collaboration can feel effortless.',
+    tags: ['Logisim', 'Logic Gates', 'Circuit Design', 'Computer Architecture', 'Group Work', 'Problem Solving'],
+    images: [],
+    video: null,
+    doc: {path:'docs/Circuit Simulation COA.pdf', label:'View Circuit Simulation Report pdf', type:'PDF'}
+  },
+
+  blood: {
+    icon: '🩸',
+    title: 'Blood Donation Management System — SRS',
+    sem: 'Semester 1 · Project 06 · Software Engineering Principles',
+    desc: [
+      'This group project tasked us with producing a Software Requirements Specification (SRS) report for a blood donation management system. The subject matter was more complex than it first appeared — understanding how blood donation actually works, the roles involved, and the data flows required significant research before we could even begin writing.',
+      'I had to listen carefully to my teammates throughout this project, particularly when they had domain knowledge I lacked. Jumping ahead without understanding the full picture would have led to a poor specification, so I forced myself to slow down and absorb information before contributing.',
+      'In the end, we produced a thorough report — though we did lose marks for referencing issues. At that point in the semester, Harvard referencing was still new to us, and we hadn\'t yet internalised the required format. It was a costly but formative lesson in the importance of academic conventions in professional documents.'
+    ],
+    learned: 'This project taught me how to approach a domain I knew very little about — through research, active listening, and asking the right questions. I also learned, the hard way, that academic referencing is not optional. Losing marks over formatting that could have been corrected with more attention to detail was a lesson I took seriously going into Semester 2.',
+    tags: ['SRS', 'Software Engineering', 'Research', 'Harvard Referencing', 'Group Work', 'Technical Writing'],
+    images: [],
+    video: null,
+    doc: {path:'docs/BloodDonationManagementSystem.pdf', label:'View Blood Donation Management System SRS pdf', type:'PDF'}
+  },
+
+  interview: {
+    icon: '🎭',
+    title: 'Interview Role Play',
+    sem: 'Semester 2 · Project 01 · Communication & Business Skills for IT',
+    desc: [
+      'This assignment asked us to simulate a formal job interview — and for me, it came with an extra layer of complexity: I was cast as the interviewer, not the interviewee. It was my first time playing that role, and the responsibility of driving the conversation and evaluating responses felt genuinely daunting.',
+      'To make things more challenging, I was paired with a team of people I barely knew. Rather than waiting to see how things unfolded, I took the initiative and organised a meeting to plan our approach, divide responsibilities, and rehearse. That decision changed the dynamic completely — we went from a group of strangers into a coordinated team.',
+      'On the day, the interview ran smoothly. There\'s even a detail I\'m proud of that isn\'t visible in the footage: the formal suit my teammate is wearing in the photo belongs to me. He forgot to bring one, so I lent him mine. It\'s a small thing, but it reflects how I think about being part of a team — if someone needs help, you help them.'
+    ],
+    learned: 'Taking initiative in an unfamiliar group taught me that leadership doesn\'t require a title — it just requires someone to step up. I also grew significantly more comfortable in formal communication scenarios, and learned that thorough preparation is what separates a confident performance from a nervous one.',
+    tags: ['Interview Skills', 'Leadership', 'Professional Etiquette', 'Teamwork', 'Verbal Communication', 'Preparation'],
+    images: ['images/I1.jpg', 'images/I2.jpg', 'images/I3.jpg'],
+    video: null,
+    doc: null
+  },
+
+  research: {
+    icon: '📄',
+    title: 'Academic Writing',
+    sem: 'Semester 2 · Project 02 · Communication & Business Skills for IT',
+    desc: [
+      'This group assignment required us to produce a formal academic report on a topic of our choice. After deliberation, we settled on something we all felt personally connected to: unemployment in the IT sector. As Computer Science students, this isn\'t an abstract issue — it\'s the landscape we\'re about to enter.',
+      'Each team member was assigned a section of the research, and we then synthesised our findings into a unified, formally written report. The process involved sourcing academic literature, structuring arguments coherently, and maintaining a consistent formal register throughout.',
+      'I\'ll be honest about this one: once we realised the assignment wasn\'t going to be formally graded, our motivation dropped and we didn\'t push ourselves to refine it as much as we could have. We completed it, but without the drive to make it truly excellent. That\'s a reflection I take seriously — the value of work shouldn\'t depend entirely on whether it\'s being marked.'
+    ],
+    learned: 'The most important lesson from this project wasn\'t technical — it was about intrinsic motivation. I recognised that doing the minimum because "it doesn\'t count" is a habit that can follow you into professional life. I also strengthened my academic writing skills and learned how to structure a multi-author report without losing coherence.',
+    tags: ['Academic Writing', 'Research', 'IT Sector', 'Group Work', 'Formal Register', 'Report Writing'],
+    images: null,
+    video: null,
+    doc: {path:'docs/Youth Unemployment in IT - Report.pdf', label:'View the full report', type:'PDF'}
+  },
+
+  montecarlo: {
+    icon: '🎲',
+    title: 'Monte Carlo Simulation — Python',
+    sem: 'Semester 2 · Project 03 · Computational Mathematics',
+    desc: [
+      'This individual coursework pushed my Python skills harder than anything I had attempted before. The task was to simulate a supermarket queue with two cashiers using Monte Carlo methods — which meant not just writing code that runs, but writing code that accurately models probabilistic behaviour.',
+      'The difficulty wasn\'t just technical. After getting the simulation to run, I had to interpret the results, calculate meaningful probabilities, and draw appropriate deductions from the data. That analytical layer — turning output into insight — was genuinely mind-bending and required a different kind of thinking than pure programming.',
+      'I spent hours trapped in error messages, rewriting logic, second-guessing my approach, and starting sections again from scratch. But I refused to give up. With the help of various tools and a lot of persistence, I completed the simulation and generated a full report of my findings.'
+    ],
+    learned: 'This assignment taught me what it truly means to work independently under technical pressure. I developed resilience — the ability to sit with a problem for hours without giving up. I also grew much more confident in my Python skills and in my ability to interpret data programmatically, which I know will be foundational in my future CS studies.',
+    tags: ['Python', 'Monte Carlo', 'Probability', 'Simulation', 'Individual Work', 'Data Analysis', 'Persistence'],
+    images: null,
+    video: null,
+    doc: {path:'docs/Monte Carlo Assignment.pdf', label:'View the full report', type:'PDF'}
+  },
+
+  marie: {
+    icon: '🔢',
+    title: "Cramer's Rule — MARIE Assembly",
+    sem: "Semester 2 · Project 04 · Computer Organisation & Architecture",
+    desc: [
+      "This project started looking deceptively simple — implement Cramer's Rule, a method for solving systems of linear equations. Then reality set in: we had to write it in MARIE assembly language, where there are no built-in multiply or divide operations. Only addition and subtraction exist.",
+      "That constraint forced me to think at an entirely different level of abstraction. To multiply, I had to build a loop that adds a number to itself repeatedly. To divide, I had to count how many times a value fits into another through repeated subtraction. Every operation I had taken for granted had to be constructed from scratch.",
+      "My teammates contributed their sections of the code, and assembling all our pieces into one functioning program was its own challenge — ensuring variable names didn't clash, that the flow of execution made sense across contributions, and that the final output was correct. When the program finally ran and produced the right answer, the satisfaction was unlike anything else from this semester."
+    ],
+    learned: "This project gave me a deep appreciation for what computers actually do at the hardware level. Understanding that even simple arithmetic is built from primitive operations changed how I think about programming. I also learned how to integrate team-written code into a single coherent program — a collaborative skill that's directly applicable to real software development.",
+    tags: ['MARIE Assembly', 'Computer Architecture', 'Low-Level Programming', "Cramer's Rule", 'Group Work', 'Logic Building'],
+    images: null,
+    video: null,
+    doc: {path:"docs/MARIE simulator- Cramer's rule.pdf", label:'View the full report', type:'PDF'}
+  },
+
+  database: {
+    icon: '🚗',
+    title: 'Car Rental Database System',
+    sem: 'Semester 2 · Project 05 · Database Systems',
+    desc: [
+      'This group project required us to design and implement a relational database system for a car rental company, along with a full report documenting our design decisions and the SQL code behind it. Once again, I was working with a new team — people I hadn\'t collaborated with before.',
+      'What stood out this time was how quickly I adapted. Having been through multiple group assignments by this point, I\'d developed a better sense of how to read a team\'s working pace, align on task allocation, and communicate expectations clearly without creating friction. The result was near-perfect task distribution and a smooth collaborative process.',
+      'The conceptual side of the project — understanding how a car rental system actually functions, the entities involved, and how they relate to each other — required careful discussion and sometimes conflicting ideas. But I applied the conflict resolution skills I\'d built across the year, and we worked through it constructively. Our final presentation was polished, particularly the testing demonstration, which I had structured and prepared efficiently.'
+    ],
+    learned: 'By this point in the year, I could genuinely see my own growth. Adapting to new teams had become natural rather than stressful. I deepened my SQL knowledge significantly and gained practical experience designing a relational schema from a real-world use case. The presentation also showed me how much my confidence in formal delivery had improved since Semester 1.',
+    tags: ['SQL', 'Database Design', 'ER Diagrams', 'Group Work', 'Presentation', 'Relational Schemas'],
+    images: null,
+    video: null,
+    doc: {path:'docs/CarRentalSystem.pdf', label:'View the Car Rental Database report', type:'PDF'}
+  },
+
+  eportfolio: {
+    icon: '🌐',
+    title: 'E-Portfolio — This Website',
+    sem: 'Semester 2 · Project 06 · Communication & Business Skills for IT',
+    desc: [
+      'When this assignment was introduced, we were shown a site builder as the recommended platform. I gave it a try, but quickly felt constrained by its templates and limited customisation. I wanted something that actually reflected who I am — not a premade layout with my name dropped in.',
+      'So I made a decision: I would build my portfolio from scratch in HTML, CSS, and JavaScript, version-controlled with Git. The problem was that I had very limited experience with all three, particularly JavaScript. What followed was weeks of learning, failing, reading documentation, debugging, and slowly piecing together something I was genuinely proud of.',
+      'Every interactive element on this site — the particle background, the modal breakdowns, the scroll animations, the expandable panels — was something I had to research, understand, and implement myself. It was one of the most technically demanding things I\'ve done independently, and also one of the most rewarding.'
+    ],
+    learned: 'This project is the clearest evidence of my growth as a technical learner. I taught myself enough front-end development to build a polished, multi-page interactive website from nothing. Beyond the code, I learned how to take ownership of a project, make bold decisions, and push through the discomfort of not knowing how something works until I figured it out.',
+    tags: ['HTML', 'CSS', 'JavaScript', 'Git', 'UI Design', 'Self-Directed Learning'],
+    images: null,
+    video: null,
+    doc: null
+  }
+
+};
+
+// ─────────────────────────────────────────────
+//  MODAL LOGIC
+// ─────────────────────────────────────────────
+function openProject(id, event) {
+  const p = projects[id];
+  if (!p) return;
+
+  document.getElementById('mIcon').textContent = p.icon;
+  document.getElementById('mTitle').textContent = p.title;
+  document.getElementById('mSem').textContent = p.sem;
+
+  document.getElementById('mDesc').innerHTML =
+    p.desc.map(t => `<p>${t}</p>`).join('') +
+    `<div class="modal-learned">
+      <div class="modal-learned-label">// WHAT I LEARNED</div>
+      <p>${p.learned}</p>
+    </div>` +
+    `<div class="modal-tags">${p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}</div>`;
+
+  let mediaHTML = '';
+
+  if (p.images && p.images.length) {
+    mediaHTML += `<div class="media-img-grid">` +
+      p.images.map(src => {
+        const isFile = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(src);
+        return `<div class="media-slot">${isFile ? `<img src="${src}" alt="">` : src}</div>`;
+      }).join('') +
+    `</div>`;
+  }
+
+  if (p.video) {
+    mediaHTML += `<div class="media-video-wrap">
+      <video controls>
+        <source src="${p.video}" type="video/mp4">
+      </video>
+    </div>`;
+  }
+
+  if (p.doc) {
+    const isLink = p.doc.type === 'LINK';
+    mediaHTML += `<a href="${p.doc.path}" target="_blank" class="media-doc-link">
+      <span class="media-doc-icon">${isLink ? '🔗' : '📄'}</span>
+      <div>
+        <div class="media-doc-text">${p.doc.label}</div>
+        <div class="media-doc-sub">${isLink ? 'Opens in new tab' : 'Click to open ' + p.doc.type}</div>
+      </div>
+    </a>`;
+  }
+
+  if (!mediaHTML) {
+    mediaHTML = `<div class="media-placeholder">No attachments available for this project.</div>`;
+  }
+
+  document.getElementById('mMedia').innerHTML = mediaHTML;
+
+  document.querySelectorAll('.project-card').forEach(c => c.classList.remove('active'));
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProject() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.querySelectorAll('.project-card').forEach(c => c.classList.remove('active'));
+  document.body.style.overflow = '';
+  document.querySelectorAll('video').forEach(v => v.pause());
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeProject();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProject(); });
+</script>
+</body>
+</html>
