@@ -41,6 +41,8 @@ main{position:relative;z-index:2;padding-top:64px}
 .section-label:first-of-type{margin-top:.5rem}
 .section-label > span:first-child{white-space:nowrap}
 .section-label .sl-note{font-family:'Share Tech Mono',monospace;font-size:.6rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary)}
+.subsection-label{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--neon-purple);letter-spacing:1.5px;text-transform:uppercase;margin:2rem 0 1.2rem;padding-left:1rem;border-left:2px solid var(--neon-purple);display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem .8rem}
+.subsection-label .sl-note{font-family:'Share Tech Mono',monospace;font-size:.58rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary)}
 
 /* ── Project cards ── */
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;margin-bottom:1rem}
@@ -124,7 +126,7 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 
 <main>
   <div class="page-hero">
-    <span class="page-tag">Projects</span>
+    <span class="page-tag">Year 1 · Projects</span>
     <h1 class="page-title">Projects &amp; <span>Coursework</span></h1>
     <p class="page-sub">Everything I built in Year 1 — the hackathon-winning app, plus every project across both semesters. Click any card for a full breakdown: what it was, what I did, what I learned, and the documents behind it.</p>
   </div>
@@ -153,7 +155,9 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 
     </div>
 
-    <h2 class="section-label"><span>Semester 1</span> <span class="sl-note">CBS · Computational Maths · COA · Software Engineering</span></h2>
+    <h2 class="section-label"><span>Year 1</span> <span class="sl-note">BSc (Hons) Computer Science — coursework across two semesters</span></h2>
+
+    <h3 class="subsection-label"><span>Semester 1</span> <span class="sl-note">CBS · Computational Maths · COA · Software Engineering</span></h3>
     <div class="projects-grid">
 
       <div class="project-card reveal" onclick="openProject('online_presentation', event)">
@@ -230,7 +234,7 @@ footer p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--te
 
     </div>
 
-    <h2 class="section-label"><span>Semester 2</span> <span class="sl-note">CBS · Computational Maths · COA · Database Systems</span></h2>
+    <h3 class="subsection-label"><span>Semester 2</span> <span class="sl-note">CBS · Computational Maths · COA · Database Systems</span></h3>
     <div class="projects-grid">
 
       <div class="project-card reveal" onclick="openProject('interview', event)">
