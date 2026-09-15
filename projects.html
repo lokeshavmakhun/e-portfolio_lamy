@@ -89,8 +89,8 @@ main{position:relative;z-index:2;padding-top:64px}
 .media-img-grid{display:grid;grid-template-columns:1fr;gap:.65rem}
 .media-slot{width:100%;aspect-ratio:4/3;border:1px solid rgba(167,139,250,.12);background:rgba(167,139,250,.02);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(167,139,250,.2);text-align:center;padding:.5rem;overflow:hidden}
 .media-slot img{width:100%;height:100%;object-fit:cover;display:block}
-.media-video-wrap{position:relative;padding-top:56.25%}
-.media-video-wrap video{position:absolute;top:0;left:0;width:100%;height:100%}
+.media-video-wrap{display:flex;justify-content:center}
+.media-video-wrap video{width:100%;max-height:480px;display:block;object-fit:contain;background:#000;border:1px solid rgba(167,139,250,.15)}
 .media-doc-link{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.1rem;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.04);text-decoration:none;transition:background .2s,border-color .2s}
 .media-doc-link:hover{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.45)}
 .media-doc-icon{font-size:1.3rem;flex-shrink:0}
@@ -366,7 +366,7 @@ const projects = {
     learned: 'This project turned "I have used Python" into "I have built and shipped a full-stack AI application." I learned how to integrate an LLM responsibly with grounding instead of trusting raw output, how the pieces of a modern app (API, mobile client, container) fit together, and how much a team can build in a weekend when the scope is disciplined.',
     tags: ['FastAPI', 'React Native', 'Gemma 4.0 (local LLM)', 'Prompt Engineering', 'Docker', 'Figma', 'Full-Stack', 'Team Project', 'Hackathon Winner'],
     images: null,
-    video: null,
+    video: 'images/TransitPulse-AI-Demo.mp4',
     doc: null
   },
 
